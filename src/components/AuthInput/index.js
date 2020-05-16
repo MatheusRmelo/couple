@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import styles from './styles'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 export default function AuthInput(props){
     return (

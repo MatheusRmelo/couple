@@ -6,7 +6,7 @@ import InputEmail from '../../components/InputEmail'
 import InputPassword from '../../components/InputPassword'
 import AuthInput from '../../components/AuthInput'
 
-export default function Login(){
+export default function Login(props){
     const [showEmail, setShowEmail] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [email, setEmail] = useState('')
@@ -54,7 +54,7 @@ export default function Login(){
 
             </View>
             <View style={styles.footer}>
-                <TouchableOpacity style={styles.button} onPress={() => {}}>
+                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Menu')}>
                     <Text style={styles.buttonText}>Entrar</Text>
                 </TouchableOpacity>
             </View>

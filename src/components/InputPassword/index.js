@@ -20,7 +20,7 @@ export default function InputPassword(props){
                 </TouchableWithoutFeedback>
                 <View style={styles.container}>
                     <Text style={styles.header}>{props.text}</Text>
-                    <TextInput maxLength={5} autoCapitalize='none' keyboardType='number-pad' autoFocus={true} secureTextEntry={true} style={styles.input} value={password} onChangeText={password => setPassword(password)} />
+                    <TextInput maxLength={5} autoCapitalize='none' keyboardType='number-pad' autoFocus={true} secureTextEntry={true} style={styles.input} value={password} onChangeText={password => setPassword(password)} />          
                     <View style={styles.buttons}>
                         <TouchableOpacity onPress={props.onCancel} style={styles.button}>
                             <Text>Cancelar</Text>

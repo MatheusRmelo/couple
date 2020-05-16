@@ -38,16 +38,7 @@ export default function Register(){
             setPassword(password)
         else if (text[0] === 'C')
             setConfirmPassword(password)
-        
-        if( confirmPassword ){
-            if (password!==confirmPassword)
-                setErro(true)
-        } 
-        else
-            setErro(false)
-
-
-        
+            
         setShowPassword(false)
 
     }
@@ -62,6 +53,12 @@ export default function Register(){
     function showInputPassword(text){
         setText(text)
         setShowPassword(true)
+    }
+
+    function register(){
+        if( password !== confirmPassword )
+            return setErro(true)
+        props.navigation.navigate('Menu')
     }
     return (
         <View style={styles.container}>
@@ -104,8 +101,8 @@ export default function Register(){
                 }
             </View>
             <View style={styles.footer}>
-                <TouchableOpacity style={styles.button} onPress={() => {}}>
-                    <Text style={styles.buttonText}>Entrar</Text>
+                <TouchableOpacity style={styles.button} onPress={register}>
+                    <Text style={styles.buttonText}>Criar conta</Text>
                 </TouchableOpacity>
             </View>
         </View>
