@@ -31,7 +31,23 @@ export default StyleSheet.create({
         color: '#FFF',
         fontSize: 20,
         textAlign: 'center'
+    },
+    players: {
+        flexDirection: 'row',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
+    },
+    player: {
+        flex:1
     }
+
 
 
 })
