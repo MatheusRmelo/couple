@@ -11,7 +11,7 @@ export default StyleSheet.create({
         flex:4,
         backgroundColor: '#CACFD2',
         margin: 50,
-        borderRadius: 15,
+        borderRadius: 30,
         borderWidth: 5,
         borderColor: 'rgba(192,57,43,0.2)',
         justifyContent:'center',

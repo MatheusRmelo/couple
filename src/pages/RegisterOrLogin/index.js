@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './styles'
 
-export default function Login(){
+export default function Login(props){
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -23,7 +23,7 @@ export default function Login(){
                         Nova conta
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => {}}>
+                <TouchableOpacity style={styles.button} onPress={props.navigation.navigate('Login')}>
                     <Text style={styles.buttonText}>
                         Login
                     </Text>
