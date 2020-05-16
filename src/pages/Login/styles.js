@@ -7,23 +7,10 @@ export default StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#E74C3C',
     },
-    header:{
-        flex:4,
-        backgroundColor: '#CACFD2',
-        margin: 50,
-        borderRadius: 15,
-        borderWidth: 5,
-        borderColor: 'rgba(192,57,43,0.2)',
-        justifyContent:'center',
-        alignItems: 'center',
-        width: '70%'
-    },
-    body:{
-        flex: 2,
-        flexDirection: 'row'
-    },
+    
+    
     button: {
-        width: 150,
+        width: 200,
         margin:10,
         height:50,
         backgroundColor:'#7B241C',
@@ -35,9 +22,17 @@ export default StyleSheet.create({
         color: '#FFF',
         fontSize:15,
     },
+    footer:{
+        marginTop:20
+    },
     textHeader: {
         fontSize: 20,
         fontWeight: 'bold'
+    },
+    text:{
+        color: '#FFF',
+        fontSize: 20,
+        textAlign: 'center'
     }
 
 

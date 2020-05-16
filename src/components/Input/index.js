@@ -2,30 +2,24 @@ import React, { useState } from 'react'
 import { Text,View, Modal, TextInput,TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
 
+export default function Input(props){
+    const [name, setName] = useState('')
 
-export default function InputPassword(props){
-    const [password, setPassword] = useState('')
-
-    function save(){
-        props.onSave(password)
-        setPassword('')
-    }
-    
     return (
         <Modal transparent={true} visible={props.isVisible} onRequestClose={props.onCancel} animationType='slide'>
-            <TouchableWithoutFeedback onPress={props.onCancel}>
+                <TouchableWithoutFeedback onPress={props.onCancel}>
                     <View style={styles.background}>
 
                     </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.container}>
                     <Text style={styles.header}>{props.text}</Text>
-                    <TextInput maxLength={5} autoCapitalize='none' keyboardType='number-pad' autoFocus={true} secureTextEntry={true} style={styles.input} value={password} onChangeText={password => setPassword(password)} />
-                    <View style={styles.buttons}>
+                    <TextInput autoCapitalize='none' autoFocus={true}  style={styles.input} value={name} onChangeText={name => setName(name)} />
+                     <View style={styles.buttons}>
                         <TouchableOpacity onPress={props.onCancel} style={styles.button}>
                             <Text>Cancelar</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={save}>
+                        <TouchableOpacity style={styles.button} onPress={() => props.onSave(name)}>
                             <Text>Continuar</Text>
                         </TouchableOpacity>    
                     </View>
@@ -36,7 +30,7 @@ export default function InputPassword(props){
                     <View style={styles.background}>
 
                     </View>
-            </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback>
         </Modal>
     )
 }

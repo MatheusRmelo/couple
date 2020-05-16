@@ -9,7 +9,7 @@ export default StyleSheet.create({
         backgroundColor: '#FFF',
     },
     header: {
-        backgroundColor: '#e4e4e4',
+        backgroundColor: '#E74C3C',
         color: '#fff',
         textAlign: 'center',
         padding: 15,

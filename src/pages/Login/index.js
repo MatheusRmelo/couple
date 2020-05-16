@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity,TextInput } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './styles'
 
 import InputEmail from '../../components/InputEmail'
@@ -39,22 +39,24 @@ export default function Login(){
             <InputPassword onSave={password => savePassword(password)} isVisible={showPassword} text={text} onCancel={cancel} />
                 
             <View style={styles.body}>
-                <Text>
+                <Text style={styles.text}>
                     Seu e-mail
                 </Text>
                 <TouchableOpacity style={styles.input}  onPress={() => showInputEmail('Email')}>
                     <AuthInput icon='at' text={email} textClean=' E-mail' />
-                    
                 </TouchableOpacity>
-                <Text>
-                    Seu Senha
+                <Text style={styles.text}>
+                    Sua Senha
                 </Text>
                 <TouchableOpacity style={styles.input} onPress={() => showInputPassword('Senha')}>
                     <AuthInput icon='lock' secury text={password} textClean=' Senha' />
                 </TouchableOpacity>
+
             </View>
             <View style={styles.footer}>
-
+                <TouchableOpacity style={styles.button} onPress={() => {}}>
+                    <Text style={styles.buttonText}>Entrar</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
