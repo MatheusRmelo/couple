@@ -1,17 +1,17 @@
 import { StyleSheet } from 'react-native'
-
+import varStyles from '../../varStyles'
 export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent:'center',
         alignItems: 'center',
-        backgroundColor: '#E74C3C',
+        backgroundColor: varStyles.colors.principal,
     },
     button: {
         width: 200,
         margin:10,
         height:50,
-        backgroundColor:'#7B241C',
+        backgroundColor: varStyles.colors.secundaria,
         borderRadius: 15,
         justifyContent:'center',
         alignItems: 'center',

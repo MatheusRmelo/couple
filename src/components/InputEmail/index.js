@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Text,View, Modal, TextInput,TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
+import commonStyles from '../commonStyles'
 
 export default function InputEmail(props){
     const [email, setEmail] = useState('')
@@ -30,19 +31,19 @@ export default function InputEmail(props){
     return (
         <Modal transparent={true} visible={props.isVisible} onRequestClose={props.onCancel} animationType='slide'>
                 <TouchableWithoutFeedback onPress={props.onCancel}>
-                    <View style={styles.background}>
+                    <View style={commonStyles.background}>
 
                     </View>
                 </TouchableWithoutFeedback>
-                <View style={styles.container}>
-                    <Text style={styles.header}>{props.text}</Text>
-                    <TextInput autoCapitalize='none' autoFocus={true} keyboardType='email-address' style={styles.input} value={email} onChangeText={email => setEmail(email)} />
-                    <Text style={styles.erro}>{erro ? erro : null}</Text>
-                    <View style={styles.buttons}>
-                        <TouchableOpacity onPress={props.onCancel} style={styles.button}>
+                <View style={commonStyles.container}>
+                    <Text style={commonStyles.header}>{props.text}</Text>
+                    <TextInput autoCapitalize='none' autoFocus={true} keyboardType='email-address' style={commonStyles.input} value={email} onChangeText={email => setEmail(email)} />
+                    <Text style={commonStyles.erro}>{erro ? erro : null}</Text>
+                    <View style={commonStyles.buttons}>
+                        <TouchableOpacity onPress={props.onCancel} style={commonStyles.button}>
                             <Text>Cancelar</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={save}>
+                        <TouchableOpacity style={commonStyles.button} onPress={save}>
                             <Text>Continuar</Text>
                         </TouchableOpacity>    
                     </View>
@@ -50,7 +51,7 @@ export default function InputEmail(props){
                     
                 </View>
                 <TouchableWithoutFeedback onPress={props.onCancel}>
-                    <View style={styles.background}>
+                    <View style={commonStyles.background}>
 
                     </View>
                 </TouchableWithoutFeedback>

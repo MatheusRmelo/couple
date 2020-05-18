@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './styles'
 
+
 import InputEmail from '../../components/InputEmail'
 import InputPassword from '../../components/InputPassword'
 import AuthInput from '../../components/AuthInput'
