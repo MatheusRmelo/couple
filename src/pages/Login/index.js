@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import styles from './styles'
 
 import InputEmail from '../../components/InputEmail'
 import InputPassword from '../../components/InputPassword'
 import AuthInput from '../../components/AuthInput'
+
+import cardLove from '../../assets/images/cardLove.png'
+
 
 export default function Login(props){
     const [showEmail, setShowEmail] = useState(false)
@@ -37,7 +40,10 @@ export default function Login(props){
         <View style={styles.container}>
             <InputEmail onSave={email => saveEmail(email) } isVisible={showEmail} text={text} onCancel={cancel} />
             <InputPassword onSave={password => savePassword(password)} isVisible={showPassword} text={text} onCancel={cancel} />
-                
+            <View style={styles.header}>
+                <Image style={styles.image} source={cardLove} />
+            </View>
+
             <View style={styles.body}>
                 <Text style={styles.text}>
                     Seu e-mail

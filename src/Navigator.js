@@ -64,10 +64,10 @@ const MenuNavigator = createBottomTabNavigator(MenuRoutes, MenuConfig)
 
 
 const authRoutes = {
-    Login:  { screen: Login, navigationOptions: { title: 'Entre agora' } },
+    Login:  { screen: Login, navigationOptions: { title: 'Entre para o amor' } },
     RegisterOrLogin: { screen: RegisterOrLogin, navigationOptions: {headerShown:false } },
     Register: { screen: Register, navigationOptions: { title: 'Cadastro no amor' } },
-    Menu: { screen: MenuNavigator, navigationOptions: {headerShown:false}}
+    Menu: { screen: MenuNavigator, navigationOptions: {headerShown:false}},
 }
 const authNavigator = createStackNavigator(authRoutes, {
     initialRouteName: 'RegisterOrLogin'

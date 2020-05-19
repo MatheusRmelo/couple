@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import styles from './styles'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
+import userImg from '../../assets/images/userImg.png'
 
 import InputEmail from '../../components/InputEmail'
 import InputPassword from '../../components/InputPassword'
@@ -67,7 +69,13 @@ export default function Register(){
             <InputPassword onSave={password => savePassword(password)} isVisible={showPassword} text={text} onCancel={cancel} />
             <Input onSave={name => saveName(name)} isVisible={showInput} text={text} onCancel={cancel} />
              
-
+            <View style={styles.header}>
+                <TouchableOpacity style={styles.buttonPerfil} onPress={() => {}}>
+                    <Icon name="camera" size={30} color='white'/> 
+                    <Text  style={styles.buttonText}>Adicionar Imagem</Text>
+                </TouchableOpacity>
+                <Image style={styles.image} source={userImg}  />
+            </View>
             <View style={styles.body}>
                 <Text style={styles.text}>
                     Seu nome
@@ -87,7 +95,7 @@ export default function Register(){
                 <TouchableOpacity style={styles.input} onPress={() => showInputPassword('Senha')}>
                     <AuthInput icon='lock' secury text={password} textClean=' Senha' />
                 </TouchableOpacity>
-                <Text style={styles.text}>
+                {/* <Text style={styles.text}>
                     Confirme sua senha
                 </Text>
                 <TouchableOpacity style={styles.input} onPress={() => showInputPassword('Confirme sua senha')}>
@@ -99,7 +107,8 @@ export default function Register(){
                         Senhas diferentes
                     </Text>
                     :null
-                }
+                } */}
+               
             </View>
             <View style={styles.footer}>
                 <TouchableOpacity style={styles.button} onPress={register}>

@@ -7,20 +7,20 @@ export default StyleSheet.create({
         alignItems: 'center',
         backgroundColor: varStyles.colors.principal,
     },
-    button: {
-        width: 200,
-        margin:10,
-        height:50,
-        backgroundColor: varStyles.colors.secundaria,
-        borderRadius: 15,
-        justifyContent:'center',
+    
+    header:{
+        flex:3,
+        flexDirection:'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
-    },
-    buttonText: {
-        color: '#FFF',
-        fontSize:15,
+        width:'80%'
+    }
+    ,
+    body:{
+        flex:6
     },
     footer:{
+        flex:3,
         marginTop:20
     },
     textHeader: {
@@ -31,7 +31,31 @@ export default StyleSheet.create({
         color: '#FFF',
         fontSize: 20,
         textAlign: 'center'
-    }
+    },
+    image: {
+        width:'40%',
+        height:'90%'
+    },
+    button: {
+        width: 200,
+        height:50,
+        backgroundColor: varStyles.colors.contraste,
+        borderRadius: 15,
+        justifyContent:'center',
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: varStyles.colors.text,
+        fontSize: 14,
+    },
+    buttonPerfil: {
+        width: '50%',
+        height:60,
+        backgroundColor: varStyles.colors.contraste,
+        borderRadius: 15,
+        justifyContent:'center',
+        alignItems: 'center',
+    },
 
 
 })
