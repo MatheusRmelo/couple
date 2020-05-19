@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import RegisterOrLogin from './pages/RegisterOrLogin'
 import Login from './pages/Login'
 import Register from './pages/Register'
-
+import BackLogin from './pages/BackLogin'
 import Play from './pages/Play'
 
 const MenuRoutes = {
@@ -68,6 +68,7 @@ const authRoutes = {
     RegisterOrLogin: { screen: RegisterOrLogin, navigationOptions: {headerShown:false } },
     Register: { screen: Register, navigationOptions: { title: 'Cadastro no amor' } },
     Menu: { screen: MenuNavigator, navigationOptions: {headerShown:false}},
+    BackLogin: { screen: BackLogin, navigationOptions:{headerShown:false}},
 }
 const authNavigator = createStackNavigator(authRoutes, {
     initialRouteName: 'RegisterOrLogin'

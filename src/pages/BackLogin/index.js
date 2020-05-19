@@ -8,7 +8,9 @@ export default function BackLogin(props){
     const [email, setEmail] = useState('')
     const [erro, setErro] = useState('')
 
-    
+   function toggleModal(){
+        setModalVisible(!isModalVisible);
+    };
 
     return (
         <Modal transparent={true} visible={props.isVisible} onRequestClose={props.onCancel} animationType='slide'>
