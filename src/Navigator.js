@@ -7,24 +7,15 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import RegisterOrLogin from './pages/RegisterOrLogin'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import BackLogin from './pages/BackLogin'
 import Play from './pages/Play'
 
 const MenuRoutes = {
-    Home: {
-        name: 'Home',
+    Parceiros: {
+        name: 'Parceiros',
         screen: Play,
         navigationOptions: {
-            title: 'Serviços',
-            tabBarIcon: ({ tintColor }) => <Icon name='wrench' size={30} color={tintColor} />
-        }
-    },
-    ListServices: {
-        name: 'ListServices',
-        screen: Play,
-        navigationOptions: {
-            title: 'Meus serviços',
-            tabBarIcon: ({ tintColor }) => <Icon name='gears' size={30} color={tintColor} />
+            title: 'Parceiros',
+            tabBarIcon: ({ tintColor }) => <Icon name='heart' size={30} color={tintColor} />
         }
     },
     Play: {
@@ -33,14 +24,6 @@ const MenuRoutes = {
         navigationOptions: {
             title: 'Jogar',
             tabBarIcon: ({ tintColor }) => <Icon name='play-circle-o' size={30} color={tintColor} />
-        }
-    },
-    Xs: {
-        name: 'Xs',
-        screen: Play,
-        navigationOptions: {
-            title: 'Mensagens',
-            tabBarIcon: ({ tintColor }) => <Icon name='comment-o' size={30} color={tintColor} />
         }
     },
     Profile: {
@@ -68,7 +51,6 @@ const authRoutes = {
     RegisterOrLogin: { screen: RegisterOrLogin, navigationOptions: {headerShown:false } },
     Register: { screen: Register, navigationOptions: { title: 'Cadastro no amor' } },
     Menu: { screen: MenuNavigator, navigationOptions: {headerShown:false}},
-    BackLogin: { screen: BackLogin, navigationOptions:{headerShown:false}},
 }
 const authNavigator = createStackNavigator(authRoutes, {
     initialRouteName: 'RegisterOrLogin'
