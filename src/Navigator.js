@@ -8,11 +8,12 @@ import RegisterOrLogin from './pages/RegisterOrLogin'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Play from './pages/Play'
+import Parceiros from './pages/Parceiros'
 
 const MenuRoutes = {
     Parceiros: {
         name: 'Parceiros',
-        screen: Play,
+        screen: Parceiros,
         navigationOptions: {
             title: 'Parceiros',
             tabBarIcon: ({ tintColor }) => <Icon name='heart' size={30} color={tintColor} />
@@ -22,8 +23,8 @@ const MenuRoutes = {
         name: 'Play',
         screen: Play,
         navigationOptions: {
-            title: 'Jogar',
-            tabBarIcon: ({ tintColor }) => <Icon name='play-circle-o' size={30} color={tintColor} />
+            title: 'Love',
+            tabBarIcon: ({ tintColor }) => <Icon name='play-circle-o' size={35} color={tintColor} />
         }
     },
     Profile: {
