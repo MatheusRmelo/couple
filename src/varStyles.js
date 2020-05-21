@@ -1,10 +1,10 @@
 
 export default {
     colors: {
-        principal: '#122330',
-        secundaria: '#14639D',
-        contraste: '#14639D',
+        principal: '#5E0505',
+        secundaria: '#EE0101',
+        contraste: '#EE0101',
         text: '#FFFFFF',
-        contrasteDark: '#122330',
+        contrasteDark: '#5E0505',
     }
 }

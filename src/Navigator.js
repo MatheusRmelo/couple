@@ -39,7 +39,8 @@ const MenuRoutes = {
 const MenuConfig = {
     initialRouteName: 'Play',
     tabBarOptions: {
-        showLabel: true
+        showLabel: true,
+        activeTintColor: '#EE0101',
     }
 }
 

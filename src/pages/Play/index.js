@@ -52,10 +52,10 @@ function Item({ id, name, selected, action, image, progress }) {
                 {/* <Image style={styles.imageCard} source={image} /> */}
                 </View>
                 <View style={styles.bottom}>
-                    <Icon style={styles.icon} name="play-circle-o" size={60} color="#14639D" />
+                    <Icon style={styles.icon} name="play-circle-o" size={60} color="#EE0101" />
                     {
                         progress ?
-                        <Progress.Bar progress={0.9} width={150} />:
+                        <Progress.Bar color='#EE0101' progress={0.9} width={150} />:
                         null
                     }
                 </View>
