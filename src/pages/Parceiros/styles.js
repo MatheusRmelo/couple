@@ -4,9 +4,10 @@ import varStyles from '../../varStyles'
 export default StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: varStyles.colors.contrasteDark
     },
     item: {
-        backgroundColor: '#122330',
+        backgroundColor:'#FFFFFF',
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
@@ -28,10 +29,12 @@ export default StyleSheet.create({
     },
     header:{
         flex:1,
-        backgroundColor: varStyles.colors.secundaria,
+        backgroundColor: varStyles.colors.contraste,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        borderBottomRightRadius:18,
+        borderBottomLeftRadius:18
     },
     image: {
         width: '20%',
@@ -41,16 +44,16 @@ export default StyleSheet.create({
     titlePage:{
         color: varStyles.colors.text,
         fontSize: 24,
-        backgroundColor: varStyles.colors.secundaria,
+        backgroundColor: varStyles.colors.contraste,
         textAlign: 'center'
     },
     nomeAtual: {
         fontSize: 18,
-        color: varStyles.colors.text
+        color: 'black'
     },
     body: {
-        flex:7,
-        backgroundColor: varStyles.colors.principal,
+        flex:6,
+        backgroundColor: varStyles.colors.contrasteDark,
     },
     button: {
         width: '80%',

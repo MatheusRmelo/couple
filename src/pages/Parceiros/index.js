@@ -8,47 +8,47 @@ import userImg from '../../assets/images/userImg.png'
 const DATA = [
   {
   id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-  title: 'First part',
+  name: 'First part',
   },
   {
   id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-  title: 'Second part',
+  name: 'Second part',
   },
   {
   id: '58694a0f-3da1-471f-bd96-145571e29d72',
-  title: 'Third part',
+  name: 'Third part',
   },
   
 ];
 function select(id){
   Alert.alert(id)
 }
-function Item({ id, title, selected }) {
+function Item({ id, name, selected }) {
   return (
-    <TouchableOpacity
-      onPress={() => select(id)}
+    <View
       style={styles.item}
     > 
       <View style={styles.dados}>
         <Image style={styles.imageCard} source={userImg} width={50} height={50} />
-        <Text style={styles.nomeAtual}>Fulano X</Text>
+        <Text style={styles.nomeAtual}>{name}</Text>
       </View>
       <TouchableOpacity onPress={() => {}} style={styles.button}>
           <Text style={styles.buttonText}>Tornar atual</Text>
       </TouchableOpacity>
-    </TouchableOpacity>
+    </View>
   );
 }
 
 export default function Parceiros(){
-    const [selected, setSelected] = useState(new Map());
-     
+    const [ atual, setAtual ] = useState('Fulano X')  
+  
+
     return (
         <View style={styles.container}>
             <Text style={styles.titlePage}>Parceiro atual</Text>
             <View style={styles.header}> 
                 <Image style={styles.image} source={userImg} width={50} height={50} />
-                <Text style={styles.nomeAtual}>Fulano X</Text>
+                <Text style={[styles.nomeAtual,{color:'white'}]}>{atual}</Text>
             </View>
             <View style={styles.body}>
             <FlatList
@@ -56,13 +56,13 @@ export default function Parceiros(){
               renderItem={({ item }) => (
                 <Item
                   id={item.id}
-                  title={item.title}
-                  selected={!!selected.get(item.id)}
+                  name={item.name}
+                  
                   
                 />
               )}
               keyExtractor={item => item.id}
-              extraData={selected}
+              
              
             />
             </View>
