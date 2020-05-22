@@ -9,6 +9,16 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Play from './pages/Play'
 import Parceiros from './pages/Parceiros'
+import Profile from './pages/Profile'
+import Playing from './pages/Playing'
+const PlayingRoutes = {
+    Playing:  { screen: Playing, navigationOptions: { title: 'Make a love'} },
+    Play: { screen: Play, navigationOptions: {headerShown:false } },
+}
+const playingNavigator = createStackNavigator(PlayingRoutes, {
+    initialRouteName:'Play',
+})
+
 
 const MenuRoutes = {
     Parceiros: {
@@ -21,7 +31,7 @@ const MenuRoutes = {
     },
     Play: {
         name: 'Play',
-        screen: Play,
+        screen: playingNavigator,
         navigationOptions: {
             title: 'Love',
             tabBarIcon: ({ tintColor }) => <Icon name='play-circle-o' size={35} color={tintColor} />
@@ -29,7 +39,7 @@ const MenuRoutes = {
     },
     Profile: {
         name: 'Profile',
-        screen: Play,
+        screen: Profile,
         navigationOptions: {
             title: 'Perfil',
             tabBarIcon: ({ tintColor }) => <Icon name='user' size={30} color={tintColor} />

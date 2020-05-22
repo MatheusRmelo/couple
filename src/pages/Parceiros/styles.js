@@ -56,13 +56,14 @@ export default StyleSheet.create({
         backgroundColor: varStyles.colors.contrasteDark,
     },
     button: {
-        width: '80%',
+        width: '60%',
         height:50,
         margin: '2%',
         backgroundColor: varStyles.colors.contraste,
         borderRadius: 15,
-        justifyContent:'center',
-        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent:'space-evenly',
+        alignItems: 'center', 
     },
     buttonText: {
         color: varStyles.colors.text

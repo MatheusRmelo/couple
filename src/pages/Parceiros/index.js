@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { View, Text, Image, FlatList, TouchableOpacity, Alert } from 'react-native'
 import styles from './styles'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 import userImg from '../../assets/images/userImg.png'
-
 
 const DATA = [
   {
@@ -33,6 +33,7 @@ function Item({ id, name, selected }) {
         <Text style={styles.nomeAtual}>{name}</Text>
       </View>
       <TouchableOpacity onPress={() => {}} style={styles.button}>
+          <Icon style={styles.icon} name="toggle-up" size={20} color="#FFFFFF" />
           <Text style={styles.buttonText}>Tornar atual</Text>
       </TouchableOpacity>
     </View>

@@ -40,37 +40,40 @@ const andamento = [
     }
 ]
 
-function Item({ id, name, selected, action, image, progress }) {
-    return (
-        <TouchableOpacity onPress={() => {}} style={styles.item2}>
-            <ImageBackground
-                style={styles.item}
-                source={image}
-            > 
-                <View style={styles.dados}>
-                <Text style={styles.nomeItem}>{name}</Text>
-                {/* <Image style={styles.imageCard} source={image} /> */}
-                </View>
-                <View style={styles.bottom}>
-                    <Icon style={styles.icon} name="play-circle-o" size={60} color="#EE0101" />
-                    {
-                        progress ?
-                        <Progress.Bar color='#EE0101' progress={0.9} width={150} />:
-                        null
-                    }
-                </View>
-                
-                {/* <TouchableOpacity onPress={() => {}} style={styles.button}>
-                    <Text style={styles.buttonText}>{action}</Text>
-                </TouchableOpacity> */}
-            </ImageBackground>
-        </TouchableOpacity>
-      
-    );
-}
 
-export default function Play(){
+
+export default function Play(props){
     const [atual, setAtual ] = useState('Fulano X')
+
+    function playing(){
+        //props.navigation.setOptions({headerShown: false})
+        props.navigation.navigate('Playing')
+    }
+
+    function Item({ id, name, selected, action, image, progress }) {
+        return (
+            <TouchableOpacity onPress={playing} style={styles.item2}>
+                <ImageBackground
+                    style={styles.item}
+                    source={image}
+                > 
+                    <View style={styles.dados}>
+                    <Text style={styles.nomeItem}>{name}</Text>
+                    {/* <Image style={styles.imageCard} source={image} /> */}
+                    </View>
+                    <View style={styles.bottom}>
+                        <Icon style={styles.icon} name="play-circle-o" size={60} color="#EE0101" />
+                        {
+                            progress ?
+                            <Progress.Bar color='#EE0101' progress={0.9} width={150} />:
+                            null
+                        }
+                    </View>
+                </ImageBackground>
+            </TouchableOpacity>
+          
+        );
+    }
 
     return (
         <View style={styles.container}>
