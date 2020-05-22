@@ -25,7 +25,7 @@ export default function Playing(){
                 <Text style={styles.question}>{question}</Text>
             </View>
             <View style={styles.body}>
-                <TouchableOpacity style={styles.option} onPress={navigation.navigate('Winner')}>
+                <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Winner')}>
                     <Text style={styles.optionText}>{option[0]}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.option} onPress={() => {}}>

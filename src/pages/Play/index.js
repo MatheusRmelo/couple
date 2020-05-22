@@ -4,6 +4,7 @@ import styles from './styles'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import * as Progress from 'react-native-progress';
 import { useNavigation } from '@react-navigation/native'
+import Modal from 'react-native-modal'
 
 
 
@@ -45,13 +46,18 @@ const andamento = [
 
 
 export default function Play(props){
+    const [isModalVisible, setModalVisible] = useState(false);
     const [atual, setAtual ] = useState('Fulano X')
+    const [winner, setWinner] = useState('fulano Y')
+    const [question, setQuestion ] = useState('O que mais te atraiu na pergunta1?')  
+    const [option, setOption] = useState(['resposta1','resposta2','resposta3','resposta4'])
 
     const navigation = useNavigation()
 
     function playing(){
        navigation.navigate('Playing')
     }
+    
 
     function Item({ id, name, selected, action, image, progress }) {
         return (
@@ -77,9 +83,84 @@ export default function Play(props){
           
         );
     }
+    function Playing(){
+        return (
+            <Modal isVisible={isModalVisible} style={styles.modal}>
+                <View style={styles.modalHeader}> 
+                    <Text style={styles.question}>{question}</Text>
+                </View>
+                <View style={styles.modalBody}>
+                    <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Winner')}>
+                        <Text style={styles.optionText}>{option[0]}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.option} onPress={() => setModalVisible(false)}>
+                        <Text  style={styles.optionText}>{option[1]}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.option} onPress={() => {}}>
+                        <Text  style={styles.optionText}>{option[2]}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.option} onPress={() => {}}>
+                        <Text  style={styles.optionText}>{option[3]}</Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal> 
+        )
+    }
+
+
+    function Winner(){
+        return(
+            <Modal isVisible={true} style={styles.modal}>
+                <View style={styles.winnerHeader}> 
+                    <Image style={styles.winnerImage} source={userImg}  />
+                    <Text style={styles.winnerTitle}>Parabéns, {winner}</Text>
+                </View>
+                <View style={styles.winnerBody}>
+                    <View style={styles.winnerItems}>
+                        <Text style={styles.winnerTitleItem}>Vencedor</Text>
+                        <View style={styles.winnerItem}>
+                            <View style={styles.winnerOptions}>
+                                <Text style={styles.winnerTitleOption}> Acerto(s) </Text>
+                                <Text style={styles.correct}>10</Text>
+                            </View>
+                            <View  style={styles.winnerOptions}>
+                                <Text style={styles.winnerTitleOption}> Erro(s) </Text>
+                                <Text style={styles.wrong}>8</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.winnerItems}>
+                        <Text style={styles.winnerTitleItem}>Perdedor</Text>
+                        <View style={styles.winnerItem}>
+                            <View style={styles.winnerOptions}>
+                                <Text style={styles.winnerTitleOption}> Acerto(s) </Text>
+                                <Text style={styles.correct}>8</Text>
+                            </View>
+                            <View  style={styles.winnerOptions}>
+                                <Text style={styles.winnerTitleOption}> Erro(s) </Text>
+                                <Text style={styles.wrong}>10</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.footer}>
+                    <TouchableOpacity style={styles.button} onPress={() => {}}>
+                        {/* <Icon name="arrow-right" size={30} color="#FFFFFF" /> */}
+                        <Text style={styles.buttonText}>Continuar</Text>
+                    
+                    </TouchableOpacity>
+                </View>
+            
+            </Modal> 
+        )
+    }
+
 
     return (
         <View style={styles.container}>
+            <Playing />
+            <Winner />
+
             <Text style={styles.titlePage}>Parceiro atual</Text>
             <View style={styles.header}> 
                 <Image style={styles.image} source={userImg} width={50} height={50} />

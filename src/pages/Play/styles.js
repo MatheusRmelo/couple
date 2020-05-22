@@ -102,7 +102,82 @@ export default StyleSheet.create({
     },
     item2:{
         height:'70%'
-    }
+    },
+    modalHeader:{
+        flex:1,
+        backgroundColor: varStyles.colors.principal,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 15
+    },
+    question: {
+        color: varStyles.colors.text,
+        fontSize: 28,
+    },
+    
+    modalBody:{
+        flex:6,
+        marginTop: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    option: {
+        width: '80%',
+        margin:10,
+        height:'15%',
+        backgroundColor: varStyles.colors.contraste,
+        borderRadius: 15,
+        justifyContent:'center',
+        alignItems: 'center',
+    },
+    optionText: {
+        color: varStyles.colors.text,
+        fontSize: 18
+    },
+    modal: {
+        margin:0,
+        backgroundColor: varStyles.colors.principal
+    },
+    winnerItems: {
+        backgroundColor: varStyles.colors.text,
+        borderRadius: 18,
+        width: '90%',
+        justifyContent: 'center',
+        margin: 5
+    },
+    winnerItem: {
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexDirection: 'row' 
+    },
+    winnerTitleItem: {
+        textAlign: 'center',
+        fontSize: 30,
+        fontWeight: 'bold'
+    },
+    winnerOptions: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    winnerTitleOption: {
+        fontSize: 24
+    },
+    correct: {
+        fontSize: 18,
+        color: 'green',
+        margin: 10
+    },
+    wrong: {
+        fontSize: 18,
+        color: 'red',
+        margin: 10
+    },
+    winnerImage: {
+        width: '40%',
+        height: '80%',
+        marginHorizontal: '15%',
+    },
 
 
 

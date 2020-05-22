@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createSwitchNavigator } from 'react-navigation'
 
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -19,7 +20,7 @@ import Winner from './pages/Winner'
 
 const AppStack = createStackNavigator()
 const Tab = createBottomTabNavigator();
-var menuVisible = true
+
 function PlayGame(){
     return <AppStack.Navigator initialRouteName="Play" >
                 <AppStack.Screen name="Playing" component={Playing} options={{title: 'Pergunta 1'}} />
@@ -27,6 +28,7 @@ function PlayGame(){
                 <AppStack.Screen name="Winner" component={Winner} options={{headerShown: false}} />
             </AppStack.Navigator>
 }
+
 
 function Menu(){
     return (
@@ -53,8 +55,7 @@ function Menu(){
                     tabBarLabel: 'Love',
                     tabBarIcon: ({ color, size }) => (
                         <Icon name='play-circle-o' size={size+10} color={color} />
-                    ),
-                    tabBarVisible: menuVisible
+                    )
                 }}
             />
             <Tab.Screen
