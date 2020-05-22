@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+
+
 import styles from './styles'
 
 import cardLove from '../../assets/images/cardLove.png'
@@ -10,6 +13,8 @@ export default function RegisterOrLogin(props){
     const [password, setPassword] = useState('')
     const [erro, setErro] = useState('')
     const [text, setText] = useState('')
+
+    const navigation = useNavigation()
  
     function cancel(){
         setShowBackLogin(false)
@@ -21,14 +26,6 @@ export default function RegisterOrLogin(props){
         setPassword(password)
         setShowPassword(false)
     }
-   
-    // function showLogin(text){
-    //     setText(text)
-    //     setShowPassword(true)
-    // }
-    // function login(senha){
-
-    // }
 
     return (
         <View style={styles.container}>
@@ -66,12 +63,12 @@ export default function RegisterOrLogin(props){
                 <Image style={styles.image} source={cardLove} /> 
             </View>
             <View style={styles.body}>
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Register')}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Register')}>
                     <Text style={styles.buttonText}>
                         Nova conta
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Login')}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
                     <Text style={styles.buttonText}>
                         Login
                     </Text>

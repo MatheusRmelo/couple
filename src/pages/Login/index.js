@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+
 import styles from './styles'
 
 import InputEmail from '../../components/InputEmail'
@@ -16,6 +18,8 @@ export default function Login(props){
     const [password, setPassword] = useState('')
     const [text, setText] = useState('')
  
+    const navigation = useNavigation()
+
     function cancel(){
         setShowEmail(false)
         setShowPassword(false)
@@ -36,6 +40,11 @@ export default function Login(props){
         setText(text)
         setShowPassword(true)
     }
+
+    function navigateToMenu(){
+        navigation.navigate('Menu')
+    }
+
     return (
         <View style={styles.container}>
             <InputEmail onSave={email => saveEmail(email) } isVisible={showEmail} text={text} onCancel={cancel} />
@@ -60,7 +69,7 @@ export default function Login(props){
 
             </View>
             <View style={styles.footer}>
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Menu')}>
+                <TouchableOpacity style={styles.button} onPress={navigateToMenu}>
                     <Text style={styles.buttonText}>Entrar</Text>
                 </TouchableOpacity>
             </View>

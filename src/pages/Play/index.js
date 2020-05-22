@@ -3,6 +3,8 @@ import { Text,View, Image, FlatList, TouchableOpacity, ImageBackground } from 'r
 import styles from './styles'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import * as Progress from 'react-native-progress';
+import { useNavigation } from '@react-navigation/native'
+
 
 
 import userImg from '../../assets/images/userImg.png'
@@ -45,9 +47,10 @@ const andamento = [
 export default function Play(props){
     const [atual, setAtual ] = useState('Fulano X')
 
+    const navigation = useNavigation()
+
     function playing(){
-        //props.navigation.setOptions({headerShown: false})
-        props.navigation.navigate('Playing')
+       navigation.navigate('Playing')
     }
 
     function Item({ id, name, selected, action, image, progress }) {
