@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './styles'
-import Icon from 'react-native-vector-icons/FontAwesome'
 
-import userImg from '../../assets/images/userImg.png'
 
-export default function Playing(){
+export default function Playing(props){
     const [ question, setQuestion ] = useState('O que mais te atraiu na pergunta1?')  
     const [option, setOption] = useState(['resposta1','resposta2','resposta3','resposta4'])
 
@@ -16,7 +14,7 @@ export default function Playing(){
                 <Text style={styles.question}>{question}</Text>
             </View>
             <View style={styles.body}>
-                <TouchableOpacity style={styles.option} onPress={() => {}}>
+                <TouchableOpacity style={styles.option} onPress={() => props.navigation.navigate('Winner')}>
                     <Text style={styles.optionText}>{option[0]}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.option} onPress={() => {}}>

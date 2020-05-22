@@ -11,9 +11,12 @@ import Play from './pages/Play'
 import Parceiros from './pages/Parceiros'
 import Profile from './pages/Profile'
 import Playing from './pages/Playing'
+import Winner from './pages/Winner'
+
 const PlayingRoutes = {
     Playing:  { screen: Playing, navigationOptions: { title: 'Make a love'} },
     Play: { screen: Play, navigationOptions: {headerShown:false } },
+    Winner: { screen: Winner, navigationOptions: {headerShown:false } },
 }
 const playingNavigator = createStackNavigator(PlayingRoutes, {
     initialRouteName:'Play',
