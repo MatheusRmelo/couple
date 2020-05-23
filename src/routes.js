@@ -15,20 +15,9 @@ import Partners from './pages/Partners'
 import Play from './pages/Play'
 import Profile from './pages/Profile'
 
-import Playing from './pages/Playing'
-import Winner from './pages/Winner'
 
 const AppStack = createStackNavigator()
 const Tab = createBottomTabNavigator();
-
-function PlayGame(){
-    return <AppStack.Navigator initialRouteName="Play" >
-                <AppStack.Screen name="Playing" component={Playing} options={{title: 'Pergunta 1'}} />
-                <AppStack.Screen name="Play" component={Play} options={{headerShown: false}} />
-                <AppStack.Screen name="Winner" component={Winner} options={{headerShown: false}} />
-            </AppStack.Navigator>
-}
-
 
 function Menu(){
     return (
@@ -50,7 +39,7 @@ function Menu(){
             />
             <Tab.Screen
                 name="Play"
-                component={PlayGame}
+                component={Play}
                 options={{
                     tabBarLabel: 'Love',
                     tabBarIcon: ({ color, size }) => (

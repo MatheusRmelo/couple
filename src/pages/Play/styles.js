@@ -178,6 +178,26 @@ export default StyleSheet.create({
         height: '80%',
         marginHorizontal: '15%',
     },
+    winnerHeader:{
+        flex:5,
+        backgroundColor: varStyles.colors.text,
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 15,
+        borderRadius:18
+    },
+    winnerBody:{
+        flex:6,
+        marginTop: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    winnerFooter:{
+        marginTop:20,
+        flex:2,
+        justifyContent: 'center',
+        alignItems: 'flex-end'
+    },
 
 
 

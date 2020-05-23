@@ -47,6 +47,7 @@ const andamento = [
 
 export default function Play(props){
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isModalWinVisible, setModalWinVisible] = useState(false);
     const [atual, setAtual ] = useState('Fulano X')
     const [winner, setWinner] = useState('fulano Y')
     const [question, setQuestion ] = useState('O que mais te atraiu na pergunta1?')  
@@ -54,14 +55,19 @@ export default function Play(props){
 
     const navigation = useNavigation()
 
-    function playing(){
-       navigation.navigate('Playing')
+    function PlayGame(){
+       setModalVisible(true)
     }
+    function WinGame(option){
+        setModalVisible(false)
+        setModalWinVisible(option)
+    }
+    
     
 
     function Item({ id, name, selected, action, image, progress }) {
         return (
-            <TouchableOpacity onPress={playing} style={styles.item2}>
+            <TouchableOpacity onPress={PlayGame} style={styles.item2}>
                 <ImageBackground
                     style={styles.item}
                     source={image}
@@ -90,7 +96,7 @@ export default function Play(props){
                     <Text style={styles.question}>{question}</Text>
                 </View>
                 <View style={styles.modalBody}>
-                    <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Winner')}>
+                    <TouchableOpacity style={styles.option} onPress={() => WinGame(true)}>
                         <Text style={styles.optionText}>{option[0]}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.option} onPress={() => setModalVisible(false)}>
@@ -110,7 +116,7 @@ export default function Play(props){
 
     function Winner(){
         return(
-            <Modal isVisible={true} style={styles.modal}>
+            <Modal isVisible={isModalWinVisible} style={styles.modal}>
                 <View style={styles.winnerHeader}> 
                     <Image style={styles.winnerImage} source={userImg}  />
                     <Text style={styles.winnerTitle}>Parabéns, {winner}</Text>
@@ -143,8 +149,8 @@ export default function Play(props){
                         </View>
                     </View>
                 </View>
-                <View style={styles.footer}>
-                    <TouchableOpacity style={styles.button} onPress={() => {}}>
+                <View style={styles.winnerFooter}>
+                    <TouchableOpacity style={styles.button} onPress={() => WinGame(false)}>
                         {/* <Icon name="arrow-right" size={30} color="#FFFFFF" /> */}
                         <Text style={styles.buttonText}>Continuar</Text>
                     
