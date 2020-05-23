@@ -51,23 +51,58 @@ export default function Play(props){
     const [atual, setAtual ] = useState('Fulano X')
     const [winner, setWinner] = useState('fulano Y')
     const [question, setQuestion ] = useState('O que mais te atraiu na pergunta1?')  
-    const [option, setOption] = useState(['resposta1','resposta2','resposta3','resposta4'])
+    const [option, setOption] = useState(['1','2','3','4'])
+    const [count, setCount] = useState(0)
+    const [asks, SetAsks] = useState([])
+    const [answers, setAnswers] = useState([])
 
     const navigation = useNavigation()
 
-    function PlayGame(){
-       setModalVisible(true)
-    }
     function WinGame(option){
         setModalVisible(false)
         setModalWinVisible(option)
     }
     
     
+    async function startGame(name){
+        var answer = []
+        var ask = []
+        if ( name == 'Comidas'){
+
+           ask = ['O que mais te atraiu na pergunta1?','O que mais te atraiu na pergunta2?','O que mais te atraiu na pergunta3?']
+           answer = [['1','2','33','4'],['11','22','33','44'],['12','23','34','45']]
+            
+        }
+        SetAsks(ask)
+        setAnswers(answer)
+        setQuestion(ask[0])
+        setOption(answer[0])
+        setModalVisible(true)
+        
+    }       
+    async function chooseAnswer(answer,cont){
+
+        await setAnswers(answers.splice(0,1))
+        await SetAsks(asks.splice(0,1))
+       
+        if (asks.length>0 && answers.length>0 ){
+            setQuestion(asks[0])
+            setOption(answers[0])
+            
+        }else{
+            WinGame(true)
+            //setOption(['1','2','3','4'])
+        }   
+            
+        
+    }
+      
+
+    
 
     function Item({ id, name, selected, action, image, progress }) {
         return (
-            <TouchableOpacity onPress={PlayGame} style={styles.item2}>
+            <TouchableOpacity onPress={() => startGame(name)} style={styles.item2}>
                 <ImageBackground
                     style={styles.item}
                     source={image}
@@ -93,19 +128,23 @@ export default function Play(props){
         return (
             <Modal isVisible={isModalVisible} style={styles.modal}>
                 <View style={styles.modalHeader}> 
+                    <TouchableOpacity  style={styles.icon} onPress={() => setModalVisible(false)}>
+                        <Icon name="close" size={50} color="black" />
+                    </TouchableOpacity>
+                   
                     <Text style={styles.question}>{question}</Text>
                 </View>
                 <View style={styles.modalBody}>
                     <TouchableOpacity style={styles.option} onPress={() => WinGame(true)}>
                         <Text style={styles.optionText}>{option[0]}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.option} onPress={() => setModalVisible(false)}>
+                    <TouchableOpacity style={styles.option} onPress={() => chooseAnswer(option[1],count)}>
                         <Text  style={styles.optionText}>{option[1]}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.option} onPress={() => {}}>
+                    <TouchableOpacity style={styles.option} onPress={() => chooseAnswer(option[2])}>
                         <Text  style={styles.optionText}>{option[2]}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.option} onPress={() => {}}>
+                    <TouchableOpacity style={styles.option} onPress={() => chooseAnswer(option[3])}>
                         <Text  style={styles.optionText}>{option[3]}</Text>
                     </TouchableOpacity>
                 </View>

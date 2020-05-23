@@ -106,10 +106,10 @@ export default StyleSheet.create({
     modalHeader:{
         flex:1,
         backgroundColor: varStyles.colors.principal,
-        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 15
+        margin: '10%',
+        marginBottom: 0
     },
     question: {
         color: varStyles.colors.text,
@@ -121,6 +121,10 @@ export default StyleSheet.create({
         marginTop: 5,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    icon: {
+        alignSelf:'flex-end',
+        marginTop:10
     },
     option: {
         width: '80%',

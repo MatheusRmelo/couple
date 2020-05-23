@@ -43,7 +43,7 @@ export default StyleSheet.create({
     },
     title: {
         color: varStyles.colors.text,
-        fontSize: 24
+        fontSize: 20
     },
     buttonPhoto: {
         width: '40%',
@@ -71,7 +71,7 @@ export default StyleSheet.create({
     },
     buttonPrimary: {
         width: '60%',
-        marginVertical:15,
+        marginVertical:5,
         marginHorizontal: 10,
         height:50,
         backgroundColor: '#14639D',

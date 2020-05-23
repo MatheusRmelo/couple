@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
@@ -7,17 +7,20 @@ import styles from './styles'
 
 import cardLove from '../../assets/images/cardLove.png'
 import Modal from 'react-native-modal'
-import InputWithIcon from '../../components/InputWithIcon'
-export default function RegisterOrLogin(props){
-    const [isModalVisible, setModalVisible] = useState(true);
+import InputPassword from '../../components/InputPassword'
+import AuthInput from '../../components/AuthInput'
+
+export default function RegisterOrLogin(){
+    const [isModalVisible, setModalVisible] = useState(false);
     const [password, setPassword] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
     const [erro, setErro] = useState('')
-    const [text, setText] = useState('')
+    const [text, setText] = useState(false)
 
     const navigation = useNavigation()
  
     function cancel(){
-        setShowBackLogin(false)
+        setShowPassword(false)
     }
     function toggleModal(){
         setModalVisible(!isModalVisible);
@@ -26,31 +29,51 @@ export default function RegisterOrLogin(props){
         setPassword(password)
         setShowPassword(false)
     }
+    function showInputPassword(text){
+        setText(text)
+        setShowPassword(true)
+    }
+
+    useEffect(
+        () => {
+           var email = 'matheusroberttjmelo@gmail.com'
+           email = ''
+           if ( email )
+               setModalVisible(true)
+           else
+               setModalVisible(false)
+           
+        }
+    );
+
 
     return (
         <View style={styles.container}>
+            <InputPassword onSave={password => savePassword(password)} isVisible={showPassword} text={text} onCancel={cancel} />
+            
             <Modal isVisible={isModalVisible}>
                
-                <View style={styles.modalHeader}>
-                    <Text style={styles.textModalHeader}  >Bem vindo de volta</Text>
+                <View style={styles.modalHeader}>       
+                    <Text style={styles.textModalHeader}>Bem vindo de volta</Text>
                 </View>
                 <View style={styles.modalBody}>
                    
                     <Text style={styles.textTitleModal}>Sua senha</Text>
-                    <InputWithIcon style={styles.inputModal} icon='lock' placeholder='Senha'
-                        value={password}
-                        maxLength={5} autoCapitalize='none' keyboardType='number-pad'
-                        secureTextEntry={true}
-                        onChangeText={password => setPassword(password)} />
+                    <TouchableOpacity style={styles.input} onPress={() => showInputPassword('Senha')}>
+                        <AuthInput icon='lock' secury text={password} textClean=' Senha' />
+                    </TouchableOpacity>
                     
                     <Text style={styles.erro}>{erro ? erro : null}</Text>
                     <View style={styles.buttons}>
                         <TouchableOpacity onPress={toggleModal} style={styles.buttonModal}>
                             <Text style={styles.buttonText}>Entrar</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity>  
                         <TouchableOpacity style={styles.link} onPress={() => {}}>
                             <Text style={styles.linkText}>Sair</Text>
-                        </TouchableOpacity>    
+                        </TouchableOpacity>
+
+                   
+                            
                     </View>
                     
                     

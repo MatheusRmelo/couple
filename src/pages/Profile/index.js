@@ -69,6 +69,10 @@ export default function Profile(){
             </View>
             <View style={styles.footer}>
                 <TouchableOpacity style={styles.button} onPress={() => {}}>
+                    <Icon name="sign-out" size={30} color="#FFFFFF"/>
+                    <Text style={styles.buttonText}>Sair</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => {}}>
                     <Icon name="edit" size={30} color="#FFFFFF"/>
                     <Text style={styles.buttonText}>Mudar senha</Text>
                 </TouchableOpacity>
