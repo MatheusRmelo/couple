@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 
-import styles from './styles'
+import styles,{ Container, ContainerHeader, TitleHeader, ImgHeader, Actions, Action, ActionLabel, ModalHeader } from './styles'
 
 import cardLove from '../../assets/images/cardLove.png'
 import Modal from 'react-native-modal'
@@ -48,7 +48,7 @@ export default function RegisterOrLogin(){
 
 
     return (
-        <View style={styles.container}>
+        <Container>
             <InputPassword onSave={password => savePassword(password)} isVisible={showPassword} text={text} onCancel={cancel} />
             
             <Modal isVisible={isModalVisible}>
@@ -81,22 +81,18 @@ export default function RegisterOrLogin(){
             
                
             </Modal>
-            <View style={styles.header}>
-                <Text style={styles.title}>My Couple</Text>
-                <Image style={styles.image} source={cardLove} /> 
-            </View>
-            <View style={styles.body}>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Register')}>
-                    <Text style={styles.buttonText}>
-                        Nova conta
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
-                    <Text style={styles.buttonText}>
-                        Login
-                    </Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+            <ContainerHeader>
+                <TitleHeader>My Couple</TitleHeader>
+                <ImgHeader source={cardLove} /> 
+            </ContainerHeader>
+            <Actions>
+                <Action onPress={() => navigation.navigate('Register')}>
+                    <ActionLabel>Nova conta</ActionLabel>
+                </Action>
+                <Action onPress={() => navigation.navigate('Login')}>
+                    <ActionLabel>Login</ActionLabel>
+                </Action>
+            </Actions>
+        </Container>
     )
 }
