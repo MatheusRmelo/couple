@@ -1,9 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
+import api, { showError } from '../../services/api'
 
-import styles,{ Container, ContainerHeader, TitleHeader, ImgHeader, Actions, Action, ActionLabel, ModalHeader } from './styles'
+import styles,{ Container,
+    ContainerHeader,
+    TitleHeader,
+    ImgHeader,
+    Actions,
+    Action,
+    ActionLabel,
+    ModalBody,
+    Bold,
+    ModalLabelBody,
+    InputModal,
+    Error,
+    ButtonModal,
+    ButtonLabel,
+    Link,
+    LinkLabel,
+    ModalFooter
+} from './styles'
 
 import cardLove from '../../assets/images/cardLove.png'
 import Modal from 'react-native-modal'
@@ -23,7 +40,7 @@ export default function RegisterOrLogin(){
         setShowPassword(false)
     }
     function toggleModal(){
-        setModalVisible(!isModalVisible);
+        setModalVisible((prevState) => !prevState)
     }
     function savePassword(password){
         setPassword(password)
@@ -34,10 +51,30 @@ export default function RegisterOrLogin(){
         setShowPassword(true)
     }
 
+    async function signin(){
+        setModalVisible(false)
+        try {
+            const res = await api.post('signin',{
+                email: 'matheusroberttjmelo@gmail.com',
+                password
+            })
+            AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
+            axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
+            navigation.navigate('Menu')
+        }catch(err){
+            showError(err)
+            setModalVisible(true)
+            setErro(err)
+            setPassword('')
+        }
+    }
+
     useEffect(
         () => {
+           
            var email = 'matheusroberttjmelo@gmail.com'
-           email = ''
+           if ( password )
+                email = ''
            if ( email )
                setModalVisible(true)
            else
@@ -52,32 +89,25 @@ export default function RegisterOrLogin(){
             <InputPassword onSave={password => savePassword(password)} isVisible={showPassword} text={text} onCancel={cancel} />
             
             <Modal isVisible={isModalVisible}>
-               
-                <View style={styles.modalHeader}>       
-                    <Text style={styles.textModalHeader}>Bem vindo de volta</Text>
-                </View>
-                <View style={styles.modalBody}>
-                   
-                    <Text style={styles.textTitleModal}>Sua senha</Text>
-                    <TouchableOpacity style={styles.input} onPress={() => showInputPassword('Senha')}>
+                <ModalBody>
+                    <ModalLabelBody><Bold>Bem vindo de volta!</Bold></ModalLabelBody>
+                    <ModalLabelBody>Digite sua senha</ModalLabelBody>
+                    <InputModal onPress={() => showInputPassword('Senha')}>
                         <AuthInput icon='lock' secury text={password} textClean=' Senha' />
-                    </TouchableOpacity>
+                    </InputModal>
                     
-                    <Text style={styles.erro}>{erro ? erro : null}</Text>
-                    <View style={styles.buttons}>
-                        <TouchableOpacity onPress={toggleModal} style={styles.buttonModal}>
-                            <Text style={styles.buttonText}>Entrar</Text>
-                        </TouchableOpacity>  
-                        <TouchableOpacity style={styles.link} onPress={() => {}}>
-                            <Text style={styles.linkText}>Sair</Text>
-                        </TouchableOpacity>
-
-                   
-                            
-                    </View>
+                    <Error>{erro ? erro : null}</Error>
+                    <ModalFooter>
+                        <ButtonModal onPress={signin}>
+                            <ButtonLabel>Entrar</ButtonLabel>
+                        </ButtonModal>  
+                        <Link onPress={toggleModal}>
+                            <LinkLabel>Sair</LinkLabel>
+                        </Link>   
+                    </ModalFooter>
                     
                     
-                </View>
+                </ModalBody>
             
                
             </Modal>
