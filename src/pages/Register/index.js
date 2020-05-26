@@ -1,120 +1,121 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
-import styles from './styles'
+import {
+    Container,
+    Header,
+    ButtonPerfil,
+    ButtonLabel,
+    Img,
+    Body,
+    Label,
+    ClickInput,
+    Footer,
+    Button
+} from './styles'
+
+import { useNavigation } from '@react-navigation/native'
+import api, { showError, showSuccess } from '../../services/api'
+
 import Icon from 'react-native-vector-icons/FontAwesome'
+
 
 import userImg from '../../assets/images/userImg.png'
 
 import InputEmail from '../../components/InputEmail'
 import InputPassword from '../../components/InputPassword'
 import AuthInput from '../../components/AuthInput'
-import Input from '../../components/Input'
+import InputName from '../../components/Input'
+
+
 
 export default function Register(){
     const [showEmail, setShowEmail] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [showInput, setShowInput] = useState(false)
-
     const [erro, setErro] = useState(false)
-
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
     const [text, setText] = useState('')
+
+    const navigation = useNavigation()
  
     function cancel(){
         setShowEmail(false)
         setShowPassword(false)
         setShowInput(false)
     }
-    function saveName(name){
-        setName(name)
-        setShowInput(false)
-    }
-    function saveEmail(email){
-        setEmail(email)
-        setShowEmail(false)
-    }
-    function savePassword(password){
-        if (text[0] === 'S')
-            setPassword(password)
-        else if (text[0] === 'C')
-            setConfirmPassword(password)
-            
-        setShowPassword(false)
-
-    }
-    function showInputName(text){
+    function showInputs(text){
         setText(text)
-        setShowInput(true)
+        if (text === 'E-mail')
+            setShowEmail(true)
+        if( text === 'Nome' )
+            setShowInput(true)
+        if( text === 'Senha' )
+            setShowPassword(true)
     }
-    function showInputEmail(text){
-        setText(text)
-        setShowEmail(true)
-    }
-    function showInputPassword(text){
-        setText(text)
-        setShowPassword(true)
+    function save(text, type){
+        if (type === 'E-mail')
+            setEmail(text)
+        if (type === 'Name')
+            setName(text)
+        if (type === 'Password')
+            setPassword(text)
+        cancel()    
     }
 
-    function register(){
-        if( password !== confirmPassword )
-            return setErro(true)
-        props.navigation.navigate('Menu')
+    async function register(){
+        try {
+            const res = await api.post('signup',{
+                name,
+                email,
+                password
+            })
+            //AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
+            //api.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
+            navigation.navigate('Menu')
+            showSuccess('Sucesso no cadastro')
+        }catch(err){
+            showError(err)
+        }
     }
     return (
-        <View style={styles.container}>
-            <InputEmail onSave={email => saveEmail(email) } isVisible={showEmail} text={text} onCancel={cancel} />
-            <InputPassword onSave={password => savePassword(password)} isVisible={showPassword} text={text} onCancel={cancel} />
-            <Input onSave={name => saveName(name)} isVisible={showInput} text={text} onCancel={cancel} />
+        <Container>
+            <InputEmail onSave={email => save(email,'E-mail') } isVisible={showEmail} text={text} onCancel={cancel} />
+            <InputPassword onSave={password => save(password,'Password')} isVisible={showPassword} text={text} onCancel={cancel} />
+            <InputName onSave={name => save(name,'Name')} isVisible={showInput} text={text} onCancel={cancel} />
              
-            <View style={styles.header}>
-                <TouchableOpacity style={styles.buttonPerfil} onPress={() => {}}>
+            <Header>
+                <ButtonPerfil onPress={() => {}}>
                     <Icon name="camera" size={30} color='white'/> 
-                    <Text  style={styles.buttonText}>Adicionar Imagem</Text>
-                </TouchableOpacity>
-                <Image style={styles.image} source={userImg}  />
-            </View>
-            <View style={styles.body}>
-                <Text style={styles.text}>
+                    <ButtonLabel>Adicionar Imagem</ButtonLabel>
+                </ButtonPerfil>
+                <Img source={userImg}  />
+            </Header>
+            <Body>
+                <Label>
                     Seu nome
-                </Text >
-                <TouchableOpacity style={styles.input}  onPress={() => showInputName('Nome')}>
+                </Label >
+                <ClickInput  onPress={() => showInputs('Nome')}>
                     <AuthInput icon='user' text={name} textClean=' Nome' />
-                </TouchableOpacity>
-                <Text style={styles.text}>
+                </ClickInput>
+                <Label>
                     Seu e-mail
-                </Text>
-                <TouchableOpacity style={styles.input}  onPress={() => showInputEmail('E-mail')}>
+                </Label>
+                <ClickInput  onPress={() => showInputs('E-mail')}>
                     <AuthInput icon='at' text={email} textClean=' E-mail' />
-                </TouchableOpacity>
-                <Text style={styles.text}>
+                </ClickInput>
+                <Label>
                     Seu Senha
-                </Text>
-                <TouchableOpacity style={styles.input} onPress={() => showInputPassword('Senha')}>
+                </Label>
+                <ClickInput onPress={() => showInputs('Senha')}>
                     <AuthInput icon='lock' secury text={password} textClean=' Senha' />
-                </TouchableOpacity>
-                {/* <Text style={styles.text}>
-                    Confirme sua senha
-                </Text>
-                <TouchableOpacity style={styles.input} onPress={() => showInputPassword('Confirme sua senha')}>
-                    <AuthInput icon='lock' secury text={confirmPassword} textClean=' Confirmação de senha' />
-                </TouchableOpacity>
-                {
-                    erro ?
-                    <Text style={styles.erro}>
-                        Senhas diferentes
-                    </Text>
-                    :null
-                } */}
-               
-            </View>
-            <View style={styles.footer}>
-                <TouchableOpacity style={styles.button} onPress={register}>
-                    <Text style={styles.buttonText}>Criar conta</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+                </ClickInput>
+            </Body>
+            <Footer>
+                <Button onPress={register}>
+                    <ButtonLabel>Criar conta</ButtonLabel>
+                </Button>
+            </Footer>
+        </Container>
     )
 }

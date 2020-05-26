@@ -22,10 +22,11 @@ export const ImgHeader = styled.Image`
 export const Actions = styled.View`
     flex: 2;
     flex-direction:row;
+    justify-content: space-around;
+    margin-top: 5%;
 `
 export const Action = styled.TouchableOpacity`
     width: 40%;
-    margin:10px;
     height:50px;
     background: ${varStyles.colors.secundaria};
     border-radius: 15px;
