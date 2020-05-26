@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import api, { showError, showSuccess } from '../../services/api'
 
@@ -27,12 +28,15 @@ import Modal from 'react-native-modal'
 import InputPassword from '../../components/InputPassword'
 import AuthInput from '../../components/AuthInput'
 
+
 export default function RegisterOrLogin(){
-    const [isModalVisible, setModalVisible] = useState(true);
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [erro, setErro] = useState('')
     const [text, setText] = useState(false)
+
 
     const navigation = useNavigation()
  
@@ -54,10 +58,10 @@ export default function RegisterOrLogin(){
     async function signin(){
         try {
             const res = await api.post('signin',{
-                email: 'matheusroberttjmelo@gmail.com',
+                email,
                 password
             })
-            //AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
+            AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
             api.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
             navigation.navigate('Menu')
             showSuccess('Sucesso no login')
@@ -70,19 +74,25 @@ export default function RegisterOrLogin(){
             setPassword('')
         }
     }
-
-    useEffect(
-        () => {
-           
-           var email = password
-           
-           if ( email )
-               setModalVisible(false)
-           else
-               setModalVisible(false)
-           
+    async function checkLogin(){
+        const userDataJson = await AsyncStorage.getItem('mycouple_userData')
+        let userData = null
+        try {
+            userData = JSON.parse(userDataJson)    
+        } catch(e) {
+            //User Data inválido
         }
-    );
+        //console.log(userData)
+        if( userData ) {
+            setModalVisible(true) 
+            setEmail(userData.email)
+        } else {
+            setModalVisible(false)
+        }
+    }
+    useEffect(() => {
+        checkLogin()
+    }, [])
 
 
     return (
@@ -106,7 +116,6 @@ export default function RegisterOrLogin(){
                             <LinkLabel>Sair</LinkLabel>
                         </Link>   
                     </ModalFooter>
-                    
                     
                 </ModalBody>
             

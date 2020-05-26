@@ -65,13 +65,17 @@ export default function Register(){
 
     async function register(){
         try {
-            const res = await api.post('signup',{
+            await api.post('signup',{
                 name,
                 email,
                 password
             })
-            //AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
-            //api.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
+            const res = await api.post('signin',{
+                email,
+                password
+            })
+            AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
+            api.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
             navigation.navigate('Menu')
             showSuccess('Sucesso no cadastro')
         }catch(err){

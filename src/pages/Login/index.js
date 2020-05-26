@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import {
     Container, 
@@ -50,6 +51,24 @@ export default function Login(props){
             setPassword(text)
         cancel()    
     }
+    async function checkLogin(){
+        const userDataJson = await AsyncStorage.getItem('mycouple_userData')
+        let userData = null
+        try {
+            userData = JSON.parse(userDataJson)    
+        } catch(e) {
+            //User Data inválido
+        }
+        //console.log(userData)
+        if( userData ) {
+            setEmail(userData.email)
+        }
+    }
+    useEffect(
+         () => {     
+            checkLogin()
+        }
+    );
 
     async function login(){
         try {
@@ -57,7 +76,7 @@ export default function Login(props){
                 email,
                 password
             })
-            //AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
+            AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
             api.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
             navigation.navigate('Menu')
             showSuccess('Sucesso no login')            
