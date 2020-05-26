@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import varStyles from '../varStyles'
 
 export default StyleSheet.create({
     background: {
@@ -9,7 +10,7 @@ export default StyleSheet.create({
         backgroundColor: '#FFF',
     },
     header: {
-        backgroundColor: '#E74C3C',
+        backgroundColor: varStyles.colors.principal,
         color: '#fff',
         textAlign: 'center',
         padding: 15,

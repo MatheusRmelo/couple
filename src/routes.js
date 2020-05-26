@@ -1,7 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createSwitchNavigator } from 'react-navigation'
+
+import varStyles from './varStyles' 
 
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -66,11 +67,12 @@ export default function Routes(){
 
     return (
         <NavigationContainer>
-            <AppStack.Navigator initialRouteName="Main" >
+            <AppStack.Navigator initialRouteName="Main" 
+                op >
                 <AppStack.Screen name="Main" component={Main} options={{headerShown: false}} />
                 <AppStack.Screen name="Login" component={Login} options={{title: 'Entre para o amor'}} />
-                <AppStack.Screen name="Register" component={Register} options={{title: 'Cadastro no amor'}} />
-                <AppStack.Screen name="Menu" component={Menu} options={{headerShown: false}}/>
+                <AppStack.Screen name="Register" component={Register} options={{ title: 'Cadastro no amor'}} />
+                <AppStack.Screen name="Menu" component={Menu} options={{ headerShown: false }}/>
             </AppStack.Navigator>
             
 
