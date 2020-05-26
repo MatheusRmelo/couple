@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
-import api, { showError } from '../../services/api'
+import api, { showError, showSuccess } from '../../services/api'
 
-import styles,{ Container,
+import { Container,
     ContainerHeader,
     TitleHeader,
     ImgHeader,
@@ -28,7 +28,7 @@ import InputPassword from '../../components/InputPassword'
 import AuthInput from '../../components/AuthInput'
 
 export default function RegisterOrLogin(){
-    const [isModalVisible, setModalVisible] = useState(false);
+    const [isModalVisible, setModalVisible] = useState(true);
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [erro, setErro] = useState('')
@@ -52,15 +52,17 @@ export default function RegisterOrLogin(){
     }
 
     async function signin(){
-        setModalVisible(false)
         try {
             const res = await api.post('signin',{
                 email: 'matheusroberttjmelo@gmail.com',
                 password
             })
-            AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
-            axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
+            //AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
+            api.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
             navigation.navigate('Menu')
+            showSuccess('Sucesso no login')
+            setModalVisible(false)
+            
         }catch(err){
             showError(err)
             setModalVisible(true)
@@ -72,11 +74,10 @@ export default function RegisterOrLogin(){
     useEffect(
         () => {
            
-           var email = 'matheusroberttjmelo@gmail.com'
-           if ( password )
-                email = ''
+           var email = password
+           
            if ( email )
-               setModalVisible(true)
+               setModalVisible(false)
            else
                setModalVisible(false)
            

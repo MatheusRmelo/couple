@@ -10,7 +10,7 @@ function showSuccess(msg){
 }
 
 const api = axios.create({
-    baseURL: 'http://192.168.2.104:3333'
+    baseURL: 'http://192.168.2.8:3000'
 })
 
 export { showError, showSuccess }
