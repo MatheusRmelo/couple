@@ -52,3 +52,38 @@ export const Button = styled.TouchableOpacity`
     justify-content:center;
     align-items: center;
 `
+export const ModalBody = styled.View`
+    background: #FFFFFF;
+    border-radius:30px;
+    height: 50%;
+`
+export const IconClick = styled.TouchableWithoutFeedback`
+
+`
+export const ModalIcon = styled.View`
+    flex:1;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 15px;
+`
+export const ModalButtons = styled.View`
+    flex: 9;
+    align-items: center;
+    padding: 30px;
+`
+export const ModalButton = styled.TouchableOpacity`
+    width:100%;
+    height:35%;
+    background: ${varStyles.colors.contraste};
+    border-radius: 15px;
+    justify-content:center;
+    align-items: center;
+    flex-direction:row;
+    margin-bottom:5%;
+`
+export const ModalLabel = styled.Text`
+    font-weight: bold;
+    font-size:18px;
+    text-align: center;
+    margin: 2px 0;
+`

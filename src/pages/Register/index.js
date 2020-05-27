@@ -9,7 +9,13 @@ import {
     Label,
     ClickInput,
     Footer,
-    Button
+    Button,
+    ModalBody,
+    IconClick,
+    ModalIcon,
+    ModalButtons,
+    ModalButton,
+    ModalLabel
 } from './styles'
 
 import { useNavigation } from '@react-navigation/native'
@@ -27,7 +33,15 @@ import InputPassword from '../../components/InputPassword'
 import AuthInput from '../../components/AuthInput'
 import InputName from '../../components/Input'
 
+import ImagePicker from 'react-native-image-picker'
 
+import Modal from 'react-native-modal'
+
+const options = {
+    title: 'Escolha a imagem',
+    maxHeight: 600,
+    maxWidth: 800
+}
 
 export default function Register(){
     const [showEmail, setShowEmail] = useState(false)
@@ -38,7 +52,9 @@ export default function Register(){
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [isVisible, setisVisible] = useState(false)
     const [text, setText] = useState('')
+    const [imgUrl, setImgUrl] = useState(userImg)
 
     const navigation = useNavigation()
  
@@ -64,6 +80,23 @@ export default function Register(){
         if (type === 'Password')
             setPassword(text)
         cancel()    
+    }
+    function openOptionPhoto(){
+        setisVisible((prevState) => !prevState)
+    }
+    function pickImageCamera(){
+        ImagePicker.launchCamera(options, (res) => {
+            if(!res.didCancel){
+                setImgUrl({uri: res.uri, base64: res.data})
+            }
+        })
+    }
+    function pickImageGallery(){
+        ImagePicker.launchImageLibrary(options, (res) => {
+            if(!res.didCancel){
+                setImgUrl({uri: res.uri, base64: res.data})
+            }
+        })
     }
 
     async function register(){
@@ -94,14 +127,36 @@ export default function Register(){
             <InputPassword onSave={password => save(password,'Password')} isVisible={showPassword} text={text} onCancel={cancel} />
             <InputName onSave={name => save(name,'Name')} isVisible={showInput} text={text} onCancel={cancel} />
             <Loading isVisible={loading} />
-
+            <Modal isVisible={isVisible}>
+                <ModalBody>
+                    <ModalIcon>
+                        <IconClick onPress={openOptionPhoto}>
+                            <Icon name="close" size={35} />
+                        </IconClick>
+                    </ModalIcon>    
+                    <ModalLabel>
+                        Onde está a foto?
+                    </ModalLabel>
+                    <ModalButtons>
+                        <ModalButton onPress={pickImageCamera}>
+                            <Icon style={{marginRight: 20}} name="camera" size={30} color="#FFF" />
+                            <ButtonLabel>Câmera</ButtonLabel>
+                        </ModalButton>
+                        <ModalButton onPress={pickImageGallery}>
+                            <Icon style={{marginRight: 20}} name="file-image-o" size={30} color="#FFF" />
+                            <ButtonLabel>Galeria</ButtonLabel>
+                        </ModalButton>
+                    </ModalButtons>
+                    
+                </ModalBody>
+            </Modal>
 
             <Header>
-                <ButtonPerfil onPress={() => {}}>
+                <ButtonPerfil onPress={openOptionPhoto}>
                     <Icon name="camera" size={30} color='white'/> 
                     <ButtonLabel>Adicionar Imagem</ButtonLabel>
                 </ButtonPerfil>
-                <Img source={userImg}  />
+                <Img source={imgUrl}  />
             </Header>
             <Body>
                 <Label>
