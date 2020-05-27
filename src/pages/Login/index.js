@@ -15,6 +15,7 @@ import {
 
 import api, { showError, showSuccess } from '../../services/api'
 
+import Loading from '../../components/Loading'
 import InputEmail from '../../components/InputEmail'
 import InputPassword from '../../components/InputPassword'
 import AuthInput from '../../components/AuthInput'
@@ -26,6 +27,7 @@ import cardLove from '../../assets/images/cardLove.png'
 export default function Login(props){
     const [showEmail, setShowEmail] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [text, setText] = useState('')
@@ -70,6 +72,7 @@ export default function Login(props){
     );
 
     async function login(){
+        await setLoading(true)
         try {
             const res = await api.post('signin',{
                 email,
@@ -78,9 +81,11 @@ export default function Login(props){
             AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
             api.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
             navigation.navigate('Menu')
-            showSuccess('Sucesso no login')            
+            showSuccess('Sucesso no login')    
+            setLoading(false)        
         }catch(err){
             showError(err)
+            setLoading(false)  
         }
     }
 
@@ -88,6 +93,8 @@ export default function Login(props){
         <Container>
             <InputEmail onSave={email => save(email,'E-mail') } isVisible={showEmail} text={text} onCancel={cancel} />
             <InputPassword onSave={password => save(password,'Password')} isVisible={showPassword} text={text} onCancel={cancel} />
+            <Loading isVisible={loading} />
+            
             <Header>
                 <Img source={cardLove} />
             </Header>

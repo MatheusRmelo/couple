@@ -15,6 +15,8 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import api, { showError, showSuccess } from '../../services/api'
 
+import Loading from '../../components/Loading'
+
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 
@@ -31,6 +33,7 @@ export default function Register(){
     const [showEmail, setShowEmail] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [showInput, setShowInput] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [erro, setErro] = useState(false)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -64,6 +67,7 @@ export default function Register(){
     }
 
     async function register(){
+        await setLoading(true)
         try {
             await api.post('signup',{
                 name,
@@ -78,8 +82,10 @@ export default function Register(){
             api.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
             navigation.navigate('Menu')
             showSuccess('Sucesso no cadastro')
+            setLoading(false)
         }catch(err){
             showError(err)
+            setLoading(false)
         }
     }
     return (
@@ -87,7 +93,9 @@ export default function Register(){
             <InputEmail onSave={email => save(email,'E-mail') } isVisible={showEmail} text={text} onCancel={cancel} />
             <InputPassword onSave={password => save(password,'Password')} isVisible={showPassword} text={text} onCancel={cancel} />
             <InputName onSave={name => save(name,'Name')} isVisible={showInput} text={text} onCancel={cancel} />
-             
+            <Loading isVisible={loading} />
+
+
             <Header>
                 <ButtonPerfil onPress={() => {}}>
                     <Icon name="camera" size={30} color='white'/> 

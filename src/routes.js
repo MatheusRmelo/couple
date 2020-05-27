@@ -11,6 +11,8 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Main from './pages/Main'
 
+import PlayButton from './components/PlayButton'
+
 
 import Partners from './pages/Partners'
 import Play from './pages/Play'
@@ -24,9 +26,16 @@ function Menu(){
     return (
         <Tab.Navigator
                 initialRouteName="Play"
-                tabBarOptions={{
-                    activeTintColor: '#EE0101',
-                }}
+                tabBarOptions={
+                    {
+                        activeTintColor: '#EE0101',
+                        inactiveTintColor: '#92929c',
+                        style: {
+                            backgroundColor: '#1C2429',
+                            borderTopColor: 'rgba(255,255,255,0.2)'
+                        },
+                    }
+                }
                 >
             <Tab.Screen
                 name="Partners"
@@ -42,9 +51,10 @@ function Menu(){
                 name="Play"
                 component={Play}
                 options={{
-                    tabBarLabel: 'Love',
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name='play-circle-o' size={size+10} color={color} />
+                    tabBarLabel: '',
+                    tabBarIcon: ({ focused }) => (
+                        // <Icon name='play-circle-o' size={size+10} color={color} />
+                        <PlayButton focused={focused} />
                     )
                 }}
             />
@@ -67,8 +77,7 @@ export default function Routes(){
 
     return (
         <NavigationContainer>
-            <AppStack.Navigator initialRouteName="Main" 
-                op >
+            <AppStack.Navigator initialRouteName="Main" >
                 <AppStack.Screen name="Main" component={Main} options={{headerShown: false}} />
                 <AppStack.Screen name="Login" component={Login} options={{title: 'Entre para o amor'}} />
                 <AppStack.Screen name="Register" component={Register} options={{ title: 'Cadastro no amor'}} />
