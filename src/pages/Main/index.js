@@ -81,6 +81,7 @@ export default function RegisterOrLogin(){
         }
     }
     async function checkLogin(){
+        await setLoading(true)
         const userDataJson = await AsyncStorage.getItem('mycouple_userData')
         let userData = null
         try {
@@ -92,8 +93,10 @@ export default function RegisterOrLogin(){
         if( userData ) {
             setModalVisible(true) 
             setEmail(userData.email)
+            setLoading(false)
         } else {
             setModalVisible(false)
+            setLoading(false)
         }
     }
     useEffect(() => {

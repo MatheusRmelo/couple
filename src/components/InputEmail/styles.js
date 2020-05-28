@@ -19,7 +19,7 @@ export default StyleSheet.create({
         //fontFamily: 'Lato',
         height: 50,
         margin:15,
-        fontSize: 25,
+        fontSize: 20,
         backgroundColor: 'white',
         borderBottomWidth: 1,
         borderColor: '#E3E3E3',

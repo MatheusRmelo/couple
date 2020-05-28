@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text,View, Modal, TextInput,TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
 import commonStyles from '../commonStyles'
@@ -6,6 +6,12 @@ import commonStyles from '../commonStyles'
 export default function Input(props){
     const [name, setName] = useState('')
 
+    useEffect(
+        () => {     
+            if(props.name)
+            setName(props.name)
+       }
+    );
     return (
         <Modal transparent={true} visible={props.isVisible} onRequestClose={props.onCancel} animationType='slide'>
                 <TouchableWithoutFeedback onPress={props.onCancel}>

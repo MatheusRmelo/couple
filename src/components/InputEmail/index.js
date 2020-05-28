@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text,View, Modal, TextInput,TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
 import commonStyles from '../commonStyles'
@@ -27,6 +27,12 @@ export default function InputEmail(props){
             props.onSave(email)
         }
     }
+    useEffect(
+        () => {     
+            if(props.email)
+                setEmail(props.email)
+       }
+    );
 
     return (
         <Modal transparent={true} visible={props.isVisible} onRequestClose={props.onCancel} animationType='slide'>

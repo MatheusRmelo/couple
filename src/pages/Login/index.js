@@ -61,7 +61,7 @@ export default function Login(props){
             //User Data inválido
         }
         //console.log(userData)
-        if( userData ) {
+        if( userData && email ==='' ) {
             setEmail(userData.email)
         }
     }

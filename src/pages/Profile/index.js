@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import Icon from 'react-native-vector-icons/FontAwesome'
+
+import AsyncStorage from '@react-native-community/async-storage'
+
+import { useNavigation } from '@react-navigation/native'
 
 import userImg from '../../assets/images/userImg.png'
 import AuthInput from '../../components/AuthInput'
@@ -11,17 +15,19 @@ import InputEmail from '../../components/InputEmail'
 
 
 export default function Profile(){
-    const [name, setName] = useState('Matheus')
-    const [email, setEmail] = useState('robertttjmelo@gmail.com')
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [img, setImg] = useState(null) 
 
     const [showEmail, setShowEmail] = useState(false)
     const [showInput, setShowInput] = useState(false)
 
     const [text, setText] = useState('')
 
+    const navigation = useNavigation()
+
     function cancel(){
         setShowEmail(false)
-        setShowPassword(false)
         setShowInput(false)
     }
 
@@ -42,16 +48,36 @@ export default function Profile(){
         setText(text)
         setShowEmail(true)
     }
+    async function getInfos(){
+        const userDataJson = await AsyncStorage.getItem('mycouple_userData')
+        let userData = null
+        try {
+            userData = JSON.parse(userDataJson)    
+        } catch(e) {
+            //User Data inválido
+        }
+        //console.log(userData)
+        if( userData && email ==='' ) {
+            setEmail(userData.email)
+            setName(userData.name)
+            setImg(userData.profile_img)
+        }
+    }
+    useEffect(
+         () => {     
+            getInfos()
+        }
+    );
 
 
     return(
         <View style={styles.container}>
-            <Input onSave={name => saveName(name)} isVisible={showInput} text={text} onCancel={cancel} />
-            <InputEmail onSave={email => saveEmail(email)} isVisible={showEmail} text={text} onCancel={cancel} />
+            <Input onSave={name => saveName(name)} isVisible={showInput} text={text} onCancel={cancel} name={name} />
+            <InputEmail onSave={email => saveEmail(email)} isVisible={showEmail} text={text} onCancel={cancel} email={email} />
 
             <Text style={styles.titlePage}>Meu Perfil</Text>
             <View style={styles.header}> 
-                <Image style={styles.image} source={userImg}  />
+                <Image style={styles.image} source={img ? {uri: img} : userImg}   />
                 <TouchableOpacity style={styles.buttonPhoto} onPress={() => {}}>
                     <Icon name="camera" size={20} color="#FFFFFF"/>
                     <Text style={styles.buttonText}>Mudar foto</Text>
@@ -68,7 +94,7 @@ export default function Profile(){
                 </TouchableOpacity>
             </View>
             <View style={styles.footer}>
-                <TouchableOpacity style={styles.button} onPress={() => {}}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Main')}>
                     <Icon name="sign-out" size={30} color="#FFFFFF"/>
                     <Text style={styles.buttonText}>Sair</Text>
                 </TouchableOpacity>

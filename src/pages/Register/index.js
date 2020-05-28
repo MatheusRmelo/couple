@@ -19,7 +19,11 @@ import {
 } from './styles'
 
 import { useNavigation } from '@react-navigation/native'
+
+import AsyncStorage from '@react-native-community/async-storage'
+
 import api, { showError, showSuccess } from '../../services/api'
+import axios from 'axios'
 
 import Loading from '../../components/Loading'
 
@@ -55,7 +59,6 @@ export default function Register(){
     const [isVisible, setisVisible] = useState(false)
     const [text, setText] = useState('')
     const [imgUrl, setImgUrl] = useState(userImg)
-
     const navigation = useNavigation()
  
     function cancel(){
@@ -88,6 +91,7 @@ export default function Register(){
         ImagePicker.launchCamera(options, (res) => {
             if(!res.didCancel){
                 setImgUrl({uri: res.uri, base64: res.data})
+                setisVisible(false)
             }
         })
     }
@@ -95,31 +99,46 @@ export default function Register(){
         ImagePicker.launchImageLibrary(options, (res) => {
             if(!res.didCancel){
                 setImgUrl({uri: res.uri, base64: res.data})
+                setisVisible(false)
             }
         })
     }
 
     async function register(){
         await setLoading(true)
-        try {
-            await api.post('signup',{
-                name,
-                email,
-                password
-            })
-            const res = await api.post('signin',{
-                email,
-                password
-            })
-            AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
-            api.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
-            navigation.navigate('Menu')
-            showSuccess('Sucesso no cadastro')
+        var profile_img = ''
+        
+        await axios.post('https://us-central1-teeste-c9030.cloudfunctions.net/uploadImage',{
+            image: imgUrl.base64
+        })
+        .then( async resp => {
+            profile_img = resp.data.imageUrl
+            try {
+                await api.post('signup',{
+                    name,
+                    profile_img,
+                    email,
+                    password
+                })
+                const res = await api.post('signin',{
+                    email,
+                    password
+                })
+                AsyncStorage.setItem('mycouple_userData', JSON.stringify(res.data))
+                api.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
+                navigation.navigate('Menu')
+                showSuccess('Sucesso no cadastro')
+                setLoading(false)
+            }catch(err){
+                showError(err)
+                setLoading(false)
+            }
+        })
+        .catch(err => {
             setLoading(false)
-        }catch(err){
             showError(err)
-            setLoading(false)
-        }
+        })
+       
     }
     return (
         <Container>

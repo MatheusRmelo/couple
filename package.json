@@ -29,7 +29,8 @@
     "react-navigation": "^4.3.9",
     "react-navigation-stack": "^2.5.0",
     "react-navigation-tabs": "^2.8.13",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "uuid-v4": "^0.1.0"
   },
   "devDependencies": {
     "@babel/core": "7.9.6",
