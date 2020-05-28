@@ -11,7 +11,7 @@ export default StyleSheet.create({
         backgroundColor: varStyles.colors.secundaria,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         borderBottomRightRadius:18,
         borderBottomLeftRadius:18
     },
@@ -27,9 +27,18 @@ export default StyleSheet.create({
         alignItems: 'flex-end'
     },
     image: {
-        width: '20%',
+        width: '90%',
         height: '100%',
         marginHorizontal: '15%',
+        borderRadius:10
+    },
+    borderImage:{
+        backgroundColor: '#FFF',
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 5,
+        marginRight: 10
     },
     titlePage:{
         color: varStyles.colors.text,

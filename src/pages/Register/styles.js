@@ -57,7 +57,7 @@ export const ModalBody = styled.View`
     border-radius:30px;
     height: 50%;
 `
-export const IconClick = styled.TouchableWithoutFeedback`
+export const IconClick = styled.TouchableOpacity`
 
 `
 export const ModalIcon = styled.View`

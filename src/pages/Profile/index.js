@@ -77,7 +77,10 @@ export default function Profile(){
 
             <Text style={styles.titlePage}>Meu Perfil</Text>
             <View style={styles.header}> 
-                <Image style={styles.image} source={img ? {uri: img} : userImg}   />
+                <View style={styles.borderImage}>
+                    <Image style={styles.image} source={img  ? {uri: img} : userImg}   />
+                </View>
+                
                 <TouchableOpacity style={styles.buttonPhoto} onPress={() => {}}>
                     <Icon name="camera" size={20} color="#FFFFFF"/>
                     <Text style={styles.buttonText}>Mudar foto</Text>
