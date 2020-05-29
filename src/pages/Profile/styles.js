@@ -1,5 +1,46 @@
 import { StyleSheet } from 'react-native'
 import varStyles from '../../varStyles'
+import styled from 'styled-components'
+
+export const ModalBody = styled.View`
+    background: #FFFFFF;
+    border-radius:30px;
+    height: 50%;
+`
+export const ButtonLabel = styled.Text`
+    color: ${varStyles.colors.text};
+    font-size: 14px;
+`
+export const ModalIcon = styled.View`
+    flex:1;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 15px;
+`
+export const ModalButtons = styled.View`
+    flex: 9;
+    align-items: center;
+    padding: 30px;
+`
+export const ModalButton = styled.TouchableOpacity`
+    width:100%;
+    height:35%;
+    background: ${varStyles.colors.contraste};
+    border-radius: 15px;
+    justify-content:center;
+    align-items: center;
+    flex-direction:row;
+    margin-bottom:5%;
+`
+export const ModalLabel = styled.Text`
+    font-weight: bold;
+    font-size:18px;
+    text-align: center;
+    margin: 2px 0;
+`
+export const IconClick = styled.TouchableOpacity`
+
+`
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -19,7 +60,7 @@ export default StyleSheet.create({
         flex:3,
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 30
+        marginVertical: '15%'
     },
     footer:{
         flex:6,
@@ -52,7 +93,7 @@ export default StyleSheet.create({
     },
     title: {
         color: varStyles.colors.text,
-        fontSize: 20
+        fontSize: 15
     },
     buttonPhoto: {
         width: '40%',
@@ -70,7 +111,7 @@ export default StyleSheet.create({
     button: {
         width: '40%',
         marginVertical:5,
-        marginHorizontal: 10,
+        marginRight: 25,
         height:50,
         backgroundColor: varStyles.colors.secundaria,
         borderRadius: 15,
@@ -81,7 +122,7 @@ export default StyleSheet.create({
     buttonPrimary: {
         width: '60%',
         marginVertical:5,
-        marginHorizontal: 10,
+        marginHorizontal: 25,
         height:50,
         backgroundColor: '#14639D',
         borderRadius: 15,

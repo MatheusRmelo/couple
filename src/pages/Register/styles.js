@@ -8,7 +8,7 @@ export const Container = styled.SafeAreaView`
     background: ${varStyles.colors.principal};
 `
 export const Header = styled.View`
-    flex: 3;
+    flex: 2;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -35,7 +35,7 @@ export const Body = styled.View`
 `
 export const Label = styled.Text`
     color: #FFF;
-    font-size:18px;
+    font-size:15px;
     text-align: center;
     margin: 2px 0;
 `

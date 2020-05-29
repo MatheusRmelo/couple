@@ -38,7 +38,7 @@ import AuthInput from '../../components/AuthInput'
 import InputName from '../../components/Input'
 
 import ImagePicker from 'react-native-image-picker'
-
+import DropDownPicker from 'react-native-dropdown-picker';
 import Modal from 'react-native-modal'
 
 const options = {
@@ -47,11 +47,13 @@ const options = {
     maxWidth: 800
 }
 
+
 export default function Register(){
     const [showEmail, setShowEmail] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [showInput, setShowInput] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [sexo, setSexo] = useState('Feminino')
     const [erro, setErro] = useState(false)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -60,7 +62,7 @@ export default function Register(){
     const [text, setText] = useState('')
     const [imgUrl, setImgUrl] = useState(userImg)
     const navigation = useNavigation()
- 
+    
     function cancel(){
         setShowEmail(false)
         setShowPassword(false)
@@ -117,6 +119,7 @@ export default function Register(){
                 await api.post('signup',{
                     name,
                     profile_img,
+                    sexo,
                     email,
                     password
                 })
@@ -185,6 +188,20 @@ export default function Register(){
                     <AuthInput icon='user' text={name} textClean=' Nome' />
                 </ClickInput>
                 <Label>
+                    Seu sexo
+                </Label >
+                <DropDownPicker
+                    items={[
+                        {label: 'Feminino', value: 'item1'},
+                        {label: 'Masculino', value: 'item2'},
+                    ]}
+                    defaultValue="item1"
+                    containerStyle={{height: 40}}
+                    style={{backgroundColor: '#fafafa'}}
+                    dropDownStyle={{backgroundColor: '#fafafa'}}
+                    onChangeItem={item => setSexo(item.label)}
+                />
+                <Label>
                     Seu e-mail
                 </Label>
                 <ClickInput  onPress={() => showInputs('E-mail')}>
@@ -196,6 +213,7 @@ export default function Register(){
                 <ClickInput onPress={() => showInputs('Senha')}>
                     <AuthInput icon='lock' secury text={password} textClean=' Senha' />
                 </ClickInput>
+                
             </Body>
             <Footer>
                 <Button onPress={register}>

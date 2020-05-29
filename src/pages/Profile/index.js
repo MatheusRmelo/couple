@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
+
 import styles from './styles'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import {
+    ModalBody,
+    IconClick,
+    ModalIcon,
+    ModalButtons,
+    ModalButton,
+    ModalLabel,
+    ButtonLabel
+} from './styles'
 
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -11,13 +21,31 @@ import userImg from '../../assets/images/userImg.png'
 import AuthInput from '../../components/AuthInput'
 import Input from '../../components/Input'
 import InputEmail from '../../components/InputEmail'
+import Loading from '../../components/Loading'
+
+import api, { showError, showSuccess } from '../../services/api'
+import axios from 'axios'
 
 
+import ImagePicker from 'react-native-image-picker'
+import Modal from 'react-native-modal'
+import DropDownPicker from 'react-native-dropdown-picker';
 
+const options = {
+    title: 'Escolha a imagem',
+    maxHeight: 600,
+    maxWidth: 800
+}
 export default function Profile(){
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [img, setImg] = useState(null) 
+    const [loading, setLoading] = useState(false)
+    const [imgOld, setimgOld] = useState(null)
+    const [isVisible, setisVisible] = useState(false)
+    const [sexo, setSexo] = useState('')
+    const [imgUrl, setImgUrl] = useState(null) 
+
 
     const [showEmail, setShowEmail] = useState(false)
     const [showInput, setShowInput] = useState(false)
@@ -25,6 +53,30 @@ export default function Profile(){
     const [text, setText] = useState('')
 
     const navigation = useNavigation()
+
+    function openOptionPhoto(){
+        setisVisible((prevState) => !prevState)
+    }
+    function pickImageCamera(){
+        ImagePicker.launchCamera(options, (res) => {
+            if(!res.didCancel){
+                setImgUrl({uri: res.uri, base64: res.data})
+                setimgOld(img)
+                setImg(res.uri)
+                setisVisible(false)
+            }
+        })
+    }
+    function pickImageGallery(){
+        ImagePicker.launchImageLibrary(options, (res) => {
+            if(!res.didCancel){
+                setImgUrl({uri: res.uri, base64: res.data})
+                setImg(res.uri)
+                setimgOld(img)
+                setisVisible(false)
+            }
+        })
+    }
 
     function cancel(){
         setShowEmail(false)
@@ -58,11 +110,77 @@ export default function Profile(){
         }
         //console.log(userData)
         if( userData && email ==='' ) {
+            setSexo(userData.sexo)
             setEmail(userData.email)
             setName(userData.name)
             setImg(userData.profile_img)
+            
         }
     }
+    function logout(){
+        navigation.navigate('Main')
+    }
+    async function deleteUser(){
+        await setLoading(true)
+        try {
+            await api.delete('user')
+            showSuccess('Usuário deletado com sucesso')
+            delete api.defaults.headers.common['Authorization']
+            AsyncStorage.removeItem('mycouple_userData')
+            setLoading(false)
+            navigation.navigate('Main')
+        } catch(err){
+            showError(err)
+            setLoading(false)
+        }
+    }
+    async function update(){
+        await setLoading(true)
+        if ( imgOld ) {
+            var profile_img = ''
+            
+            await axios.post('https://us-central1-teeste-c9030.cloudfunctions.net/uploadImage',{
+                image: imgUrl.base64
+            })
+            .then( async resp => {
+                profile_img = resp.data.imageUrl
+                try {
+                    await api.put('user',{
+                        name,
+                        profile_img,
+                        sexo,
+                        email
+                    })
+                    showSuccess('Informações alteradas')
+                    setLoading(false)
+                }catch(err){
+                    showError(err)
+                    setLoading(false)
+                }
+                setLoading(false)
+            })
+            .catch(err => {
+                setLoading(false)
+                showError(err)
+            })
+        }else{
+            try {
+                await api.put('user',{
+                    name,
+                    profile_img: img,
+                    sexo,
+                    email
+                })
+                showSuccess('Informações alteradas')
+                setLoading(false)
+            }catch(err){
+                showError(err)
+                setLoading(false)
+            }
+        }
+
+    }
+
     useEffect(
          () => {     
             getInfos()
@@ -74,6 +192,33 @@ export default function Profile(){
         <View style={styles.container}>
             <Input onSave={name => saveName(name)} isVisible={showInput} text={text} onCancel={cancel} name={name} />
             <InputEmail onSave={email => saveEmail(email)} isVisible={showEmail} text={text} onCancel={cancel} email={email} />
+            <Loading isVisible={loading} />
+            <Modal isVisible={isVisible}>
+                <ModalBody>
+                    <ModalIcon>
+                        <IconClick onPress={openOptionPhoto}>
+                            <Icon name="close" size={35} />
+                        </IconClick>
+                    </ModalIcon>    
+                    <ModalLabel>
+                        Onde está a foto?
+                    </ModalLabel>
+                    <ModalButtons>
+                        <ModalButton onPress={pickImageCamera}>
+                            <Icon style={{marginRight: 20}} name="camera" size={30} color="#FFF" />
+                            <ButtonLabel>Câmera</ButtonLabel>
+                        </ModalButton>
+                        <ModalButton onPress={pickImageGallery}>
+                            <Icon style={{marginRight: 20}} name="file-image-o" size={30} color="#FFF" />
+                            <ButtonLabel>Galeria</ButtonLabel>
+                        </ModalButton>
+                    </ModalButtons>
+                    
+                </ModalBody>
+            </Modal>
+
+
+
 
             <Text style={styles.titlePage}>Meu Perfil</Text>
             <View style={styles.header}> 
@@ -81,7 +226,7 @@ export default function Profile(){
                     <Image style={styles.image} source={img  ? {uri: img} : userImg}   />
                 </View>
                 
-                <TouchableOpacity style={styles.buttonPhoto} onPress={() => {}}>
+                <TouchableOpacity style={styles.buttonPhoto} onPress={openOptionPhoto}>
                     <Icon name="camera" size={20} color="#FFFFFF"/>
                     <Text style={styles.buttonText}>Mudar foto</Text>
                 </TouchableOpacity>
@@ -95,21 +240,38 @@ export default function Profile(){
                 <TouchableOpacity style={styles.input}   onPress={() => showInputEmail('E-mail')}>
                     <AuthInput icon='at' text={email} textClean=' E-mail' />
                 </TouchableOpacity>
+                <Text style={styles.title}>Sexo</Text>
+                <DropDownPicker
+                    items={[
+                        {label: 'Feminino', value: 'Feminino'},
+                        {label: 'Masculino', value: 'Masculino'},
+                    ]}
+                    defaultValue={sexo}
+                    containerStyle={{height: 40}}
+                    style={{backgroundColor: '#fafafa', width: '80%'}}
+                    dropDownStyle={{backgroundColor: '#fafafa'}}
+                    onChangeItem={item => setSexo(item.label)}
+                />
             </View>
+           
+            
             <View style={styles.footer}>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Main')}>
-                    <Icon name="sign-out" size={30} color="#FFFFFF"/>
-                    <Text style={styles.buttonText}>Sair</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => {}}>
-                    <Icon name="edit" size={30} color="#FFFFFF"/>
-                    <Text style={styles.buttonText}>Mudar senha</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => {}}>
-                    <Icon name="trash" size={30} color="#FFFFFF"/>
-                    <Text style={styles.buttonText}>Excluir conta</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonPrimary} onPress={() => {}}>
+                <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity style={styles.button} onPress={deleteUser}>
+                        <Icon name="trash" size={30} color="#FFFFFF"/>
+                        <Text style={styles.buttonText}>Excluir conta</Text>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity style={styles.button} onPress={() => {}}>
+                        <Icon name="edit" size={30} color="#FFFFFF"/>
+                        <Text style={styles.buttonText}>Mudar senha</Text>
+                    </TouchableOpacity>
+                </View>
+                <TouchableOpacity style={styles.button} onPress={logout}>
+                        <Icon name="sign-out" size={30} color="#FFFFFF"/>
+                        <Text style={styles.buttonText}>Sair</Text>
+                    </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonPrimary} onPress={update}>
                     <Icon name="save" size={30} color="#FFFFFF"/>
                     <Text style={styles.buttonText}>Atualizar</Text>
                 </TouchableOpacity>
