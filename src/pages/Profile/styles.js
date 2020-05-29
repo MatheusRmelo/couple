@@ -22,6 +22,29 @@ export const ModalButtons = styled.View`
     align-items: center;
     padding: 30px;
 `
+export const ModalBodyOptions = styled.View`
+    background: #FFFFFF;
+    border-radius:30px;
+    height:35%;
+`
+export const ModalButtonsOptions = styled.View`
+    flex: 9;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    padding: 30px;
+`
+export const ModalButtonOptions = styled.TouchableOpacity`
+    width:50%;
+    height:100%;
+    background: ${varStyles.colors.contraste};
+    border-radius: 15px;
+    justify-content:center;
+    align-items: center;
+    flex-direction:row;
+    margin: 0 5%;
+`
+
 export const ModalButton = styled.TouchableOpacity`
     width:100%;
     height:35%;

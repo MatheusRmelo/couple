@@ -10,7 +10,10 @@ import {
     ModalButtons,
     ModalButton,
     ModalLabel,
-    ButtonLabel
+    ButtonLabel,
+    ModalButtonsOptions,
+    ModalButtonOptions,
+    ModalBodyOptions
 } from './styles'
 
 import AsyncStorage from '@react-native-community/async-storage'
@@ -45,7 +48,9 @@ export default function Profile(){
     const [isVisible, setisVisible] = useState(false)
     const [sexo, setSexo] = useState('')
     const [imgUrl, setImgUrl] = useState(null) 
-
+    const [question, setQuestion] = useState('')
+    const [action,setAction] = useState('')
+    const [modalQuestion, setModalQuestion] = useState(false)
 
     const [showEmail, setShowEmail] = useState(false)
     const [showInput, setShowInput] = useState(false)
@@ -56,6 +61,20 @@ export default function Profile(){
 
     function openOptionPhoto(){
         setisVisible((prevState) => !prevState)
+    }
+    async function verifyAction(action){
+        if ( action == 'Delete'){
+            await setQuestion('excluir as informações conta')
+            setModalQuestion(true)
+            setAction(action)
+        }else
+        if ( action == 'Update'){
+            await setQuestion('alterar as informações da conta')
+            setModalQuestion(true)
+            setAction(action)
+        }
+        else
+            setModalQuestion(false)
     }
     function pickImageCamera(){
         ImagePicker.launchCamera(options, (res) => {
@@ -119,6 +138,13 @@ export default function Profile(){
     }
     function logout(){
         navigation.navigate('Main')
+    }
+    function chooseAction(action){
+        if (action == 'Delete')
+            deleteUser()
+        if ( action == 'Update')
+            update()
+        
     }
     async function deleteUser(){
         await setLoading(true)
@@ -216,6 +242,27 @@ export default function Profile(){
                     
                 </ModalBody>
             </Modal>
+            <Modal isVisible={modalQuestion}>
+                <ModalBodyOptions>
+                    <ModalIcon>
+                        <IconClick onPress={() => verifyAction('')}>
+                            <Icon name="close" size={35} />
+                        </IconClick>
+                    </ModalIcon>    
+                    <ModalLabel>
+                        Deseja realmente {question}?
+                    </ModalLabel>
+                    <ModalButtonsOptions>
+                        <ModalButtonOptions onPress={() => chooseAction(action)}>
+                            <ButtonLabel>Sim</ButtonLabel>
+                        </ModalButtonOptions>
+                        <ModalButtonOptions onPress={() => verifyAction('')}>
+                            <ButtonLabel>Não</ButtonLabel>
+                        </ModalButtonOptions>
+                    </ModalButtonsOptions>
+                    
+                </ModalBodyOptions>
+            </Modal>
 
 
 
@@ -257,7 +304,7 @@ export default function Profile(){
             
             <View style={styles.footer}>
                 <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity style={styles.button} onPress={deleteUser}>
+                    <TouchableOpacity style={styles.button} onPress={() => verifyAction('Delete')}>
                         <Icon name="trash" size={30} color="#FFFFFF"/>
                         <Text style={styles.buttonText}>Excluir conta</Text>
                     </TouchableOpacity>
@@ -271,7 +318,7 @@ export default function Profile(){
                         <Icon name="sign-out" size={30} color="#FFFFFF"/>
                         <Text style={styles.buttonText}>Sair</Text>
                     </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonPrimary} onPress={update}>
+                <TouchableOpacity style={styles.buttonPrimary} onPress={() => verifyAction('Update')}>
                     <Icon name="save" size={30} color="#FFFFFF"/>
                     <Text style={styles.buttonText}>Atualizar</Text>
                 </TouchableOpacity>
