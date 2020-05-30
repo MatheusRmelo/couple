@@ -72,6 +72,11 @@ export default function Profile(){
             await setQuestion('alterar as informações da conta')
             setModalQuestion(true)
             setAction(action)
+        }else
+        if ( action == 'Logout'){
+            await setQuestion('sair')
+            setModalQuestion(true)
+            setAction(action)
         }
         else
             setModalQuestion(false)
@@ -144,6 +149,8 @@ export default function Profile(){
             deleteUser()
         if ( action == 'Update')
             update()
+        if ( action == 'Logout')
+            logout()
         
     }
     async function deleteUser(){
@@ -160,6 +167,20 @@ export default function Profile(){
             setLoading(false)
         }
     }
+    async function changePassword(){
+        await setLoading(true)
+        if( true ){
+            try {
+                await api.post('user', {
+                    password: '224488'
+                })
+                setLoading(false)
+            }catch(err){
+                showError(err)
+                setLoading(false)
+            }
+        }
+    } 
     async function update(){
         await setLoading(true)
         if ( imgOld ) {
@@ -309,12 +330,12 @@ export default function Profile(){
                         <Text style={styles.buttonText}>Excluir conta</Text>
                     </TouchableOpacity>
                     
-                    <TouchableOpacity style={styles.button} onPress={() => {}}>
+                    <TouchableOpacity style={styles.button} onPress={changePassword}>
                         <Icon name="edit" size={30} color="#FFFFFF"/>
                         <Text style={styles.buttonText}>Mudar senha</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={logout}>
+                <TouchableOpacity style={styles.button} onPress={() => verifyAction('Logout')}>
                         <Icon name="sign-out" size={30} color="#FFFFFF"/>
                         <Text style={styles.buttonText}>Sair</Text>
                     </TouchableOpacity>
