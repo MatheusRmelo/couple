@@ -23,7 +23,8 @@ import {
   Error,
   ButtonModal,
   Link,
-  LinkLabel
+  LinkLabel,
+  ButtonShared
 } from './styles'
 
 
@@ -172,10 +173,12 @@ export default function Parceiros(){
                 }
             </Body>
 
-            
-              <ButtonSend onPress={toggleModal}>
-                <Icon name="plus" size={20} color="#FFFFFF" />
-              </ButtonSend>
+            <ButtonShared onPress={toggleModal}>
+              <Icon name="share" size={20} color="#FFFFFF" />
+            </ButtonShared>
+            <ButtonSend onPress={toggleModal}>
+              <Icon name="plus" size={20} color="#FFFFFF" />
+            </ButtonSend>
             
         </Container>
     )

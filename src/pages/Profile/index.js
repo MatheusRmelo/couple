@@ -33,6 +33,7 @@ import axios from 'axios'
 import ImagePicker from 'react-native-image-picker'
 import Modal from 'react-native-modal'
 import DropDownPicker from 'react-native-dropdown-picker';
+import { set } from 'react-native-reanimated'
 
 const options = {
     title: 'Escolha a imagem',
@@ -51,6 +52,7 @@ export default function Profile(){
     const [question, setQuestion] = useState('')
     const [action,setAction] = useState('')
     const [modalQuestion, setModalQuestion] = useState(false)
+    const [id, setId] = useState(0)
 
     const [showEmail, setShowEmail] = useState(false)
     const [showInput, setShowInput] = useState(false)
@@ -138,6 +140,7 @@ export default function Profile(){
             setEmail(userData.email)
             setName(userData.name)
             setImg(userData.profile_img)
+            setId(userData.user_id)
             
         }
     }
@@ -288,7 +291,7 @@ export default function Profile(){
 
 
 
-            <Text style={styles.titlePage}>Meu Perfil</Text>
+            <Text style={styles.titlePage}>Meu Perfil {id ? `- ${id}` : null}</Text>
             <View style={styles.header}> 
                 <View style={styles.borderImage}>
                     <Image style={styles.image} source={img  ? {uri: img} : userImg}   />

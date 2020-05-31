@@ -57,6 +57,17 @@ export const ButtonSend = styled.TouchableOpacity`
    justify-content: center;
    align-items:center;
 `
+export const ButtonShared = styled.TouchableOpacity`
+   position: absolute;
+   left: 10px;
+   bottom: 30px;
+   width: 20%;
+   height:50px;
+   border-radius: 25px;
+   background: #14639D;
+   justify-content: center;
+   align-items:center;
+`
 export const Image = styled.Image`
     width: 50px;
     height: 50px;
