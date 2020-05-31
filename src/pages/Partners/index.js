@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native'
+import { Share } from 'react-native'
 
 import {
   Container,
@@ -27,6 +27,8 @@ import {
   ButtonShared
 } from './styles'
 
+import AsyncStorage from '@react-native-community/async-storage'
+
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -47,12 +49,46 @@ export default function Parceiros(){
     const [ idCurrent, setIdCurrent] = useState(null)
     const [ partners, setPartners] = useState([])
     const [showInput, setShowInput] = useState(false)
+    const [id, setId] = useState('')
     const [part_id, setPart_id] = useState('')
     const [mount, setMount] = useState(true)
     const [isModalVisible, setModalVisible] = useState(false);
     const [erro, setErro] = useState('')
     const [text, setText] = useState(false)
 
+    async function onShare(){
+      try {
+        const result = await Share.share({
+          message: `Me convide no My Couple, meu id é ${id}`,
+        });
+  
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+
+    async function getId(){
+      const userDataJson = await AsyncStorage.getItem('mycouple_userData')
+      let userData = null
+      try {
+          userData = JSON.parse(userDataJson)    
+      } catch(e) {
+          //User Data inválido
+      }
+      //console.log(userData)
+      if( userData ) {
+          setId(userData.user_id)
+      }
+    }
     function toggleModal(){
       setModalVisible((prevState) => !prevState)
     }
@@ -69,8 +105,8 @@ export default function Parceiros(){
         setShowInput(true)
     }
     async function getPartners(){
-      //await setLoading(true)
       setMount(false)
+      getId()
       try {
         const res = await api.get('partners')
         await setPartners([res.data])  
@@ -173,7 +209,7 @@ export default function Parceiros(){
                 }
             </Body>
 
-            <ButtonShared onPress={toggleModal}>
+            <ButtonShared onPress={onShare}>
               <Icon name="share" size={20} color="#FFFFFF" />
             </ButtonShared>
             <ButtonSend onPress={toggleModal}>
