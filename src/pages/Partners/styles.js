@@ -19,7 +19,7 @@ export const Body = styled.ScrollView.attrs(()=> ({
         paddingLeft: 16
     }
 }))`
-    flex:6;
+    flex:10;
     background: ${varStyles.colors.contrasteDark};
 `   
 
@@ -46,6 +46,17 @@ export const Button = styled.TouchableOpacity`
     justify-content:space-evenly;
     align-items: center; 
 `
+export const ButtonSend = styled.TouchableOpacity`
+   position: absolute;
+   right: 10px;
+   bottom: 30px;
+   width: 20%;
+   height:50px;
+   border-radius: 25px;
+   background: #14639D;
+   justify-content: center;
+   align-items:center;
+`
 export const Image = styled.Image`
     width: 50px;
     height: 50px;
@@ -58,10 +69,11 @@ export const ButtonLabel = styled.Text`
     color: ${varStyles.colors.text};
 `
 export const Footer = styled.View`
-
+    margin: 2% 0;
+    align-items: flex-end;
 `
 export const Header = styled.View`
-    flex:1;
+    flex:2;
     background: ${varStyles.colors.contraste};
     flex-direction: row;
     align-items: center;
@@ -72,72 +84,47 @@ export const Header = styled.View`
 `
 export const ImageCurrent = styled.Image`
     width: 50%;
-    height: 100%;
+    height: 80%;
+    border-radius:10px;
 `
+export const ModalBody = styled.View`
+    background: #FFFFFF;
+    border-radius:30px;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+`
+export const Bold = styled.Text`
+    font-weight: bold;
+`
+export const ModalLabelBody = styled.Text`
+    font-size: 20px;
+    margin-bottom:2%;
+`
+export const InputModal = styled.TouchableOpacity`
 
-export default StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: varStyles.colors.contrasteDark
-    },
-    item: {
-        backgroundColor:'#FFFFFF',
-        padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
-        borderRadius:18,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    imageCard: {
-        width: 50,
-        height: 50, 
-    },
-    dados:{
-       
-    },
-    title: {
-        fontSize: 32,
-    },
-    header:{
-        flex:1,
-        backgroundColor: varStyles.colors.contraste,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        borderBottomRightRadius:18,
-        borderBottomLeftRadius:18
-    },
-    image: {
-        width: '20%',
-        height: '100%',
-        marginHorizontal: '15%',
-    },
-    titlePage:{
-        color: varStyles.colors.text,
-        fontSize: 24,
-        backgroundColor: varStyles.colors.contraste,
-        textAlign: 'center'
-    },
-    nomeAtual: {
-        fontSize: 18,
-        color: 'black'
-    },
-    body: {
-        flex:6,
-        backgroundColor: varStyles.colors.contrasteDark,
-    },
-    button: {
-        width: '60%',
-        height:50,
-        margin: '2%',
-        backgroundColor: varStyles.colors.contraste,
-        borderRadius: 15,
-        flexDirection: 'row',
-        justifyContent:'space-evenly',
-        alignItems: 'center', 
-    },
-    buttonText: {
-        color: varStyles.colors.text
-    }
-})
+`
+export const Error = styled.Text`
+    color: red;
+    font-size: 15px;
+`
+export const ModalFooter = styled.View`
+    
+`
+export const ButtonModal = styled.TouchableOpacity`
+    width: 200px;
+    height:50px;
+    background: ${varStyles.colors.contraste};
+    border-radius: 15px;
+    justify-content:center;
+    align-items: center;
+`
+export const Link = styled.TouchableOpacity`
+    justify-content:center;
+    align-items: center;
+    margin-top: 15px; 
+`
+export const LinkLabel = styled.Text`
+    color: ${varStyles.colors.contraste};
+    font-size: 18px;
+`

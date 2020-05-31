@@ -172,7 +172,7 @@ export default function Profile(){
         if( true ){
             try {
                 await api.post('user', {
-                    password: '224488'
+                    password: '123456'
                 })
                 setLoading(false)
             }catch(err){
