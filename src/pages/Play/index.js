@@ -1,38 +1,31 @@
 import React, { useState } from 'react'
 import { Text,View, Image, FlatList, TouchableOpacity, ImageBackground } from 'react-native'
-import styles from './styles'
+import styles, { CategoriesAvailable, Option, Label, Img, TitleCard } from './styles'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import * as Progress from 'react-native-progress';
 import { useNavigation } from '@react-navigation/native'
 import Modal from 'react-native-modal'
 
+import api from '../../services/api'
 
 
 import userImg from '../../assets/images/userImg.png'
 import travelImg from '../../assets/images/travelImg.jpg'
 import foodImg from '../../assets/images/foodImg.jpg'
 
-const disponiveis = [
+const categories = [
     {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        name: 'Viagens',
-        action: 'Jogar agora',
-        image: travelImg,
+        key: String(Math.random()),
+        img: travelImg,
+        label: 'Viagens'
     },
     {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        name: 'Second part',
-        action: 'Jogar agora',
-        image: travelImg,
+        key: String(Math.random()),
+        img: foodImg,
+        label: 'Comidas'
     },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        name: 'Third part',
-        action: 'Jogar agora',
-        image: travelImg,
-    },
-    
-];
+]
+
 const andamento = [
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -55,6 +48,7 @@ export default function Play(props){
     const [count, setCount] = useState(0)
     const [asks, SetAsks] = useState([])
     const [answers, setAnswers] = useState([])
+    const [sexo, setSexo] = useState('Masculino')
 
     const navigation = useNavigation()
 
@@ -68,18 +62,19 @@ export default function Play(props){
         var answer = []
         var ask = []
         if ( name == 'Comidas'){
-
-           ask = ['O que mais te atraiu na pergunta1?','O que mais te atraiu na pergunta2?','O que mais te atraiu na pergunta3?']
-           answer = [['1','2','33','4'],['11','22','33','44'],['12','23','34','45']]
-            
+            if (sexo == 'Masculino'){
+                ask = ['O que mais te atraiu na pergunta1?','O que mais te atraiu na pergunta2?','O que mais te atraiu na pergunta3?']
+                answer = [['1','2','33','4'],['11','22','33','44'],['12','23','34','45']]
+            }
+           
         }
         SetAsks(ask)
         setAnswers(answer)
         setQuestion(ask[0])
         setOption(answer[0])
         setModalVisible(true)
-        
     }       
+
     async function chooseAnswer(answer,cont){
 
         await setAnswers(answers.splice(0,1))
@@ -212,22 +207,18 @@ export default function Play(props){
                 <Text style={styles.nomeAtual}>{atual}</Text>
             </View>
             <View style={styles.body}>
-               <Text style={styles.titleCards}>Disponivéis</Text>
-               <FlatList
-                    style={styles.items}
-                    data={disponiveis}
-                    renderItem={({ item }) => (
-                        <Item
-                        id={item.id}
-                        name={item.name}
-                        action = {item.action}
-                        image = {item.image}
-                        />
-                    )}
-                    keyExtractor={item => item.id}
-                    horizontal={true}       
-                />
-                <Text style={styles.titleCards}>Em andamento</Text>
+               <TitleCard>Disponivéis</TitleCard>
+                <CategoriesAvailable>
+                    {categories.map((item) => (
+                        <Option onPress={()=>startGame(item.label)}
+                            key={item.key}>
+                            <Img source={item.img} />
+                            <Label>{item.label}</Label>
+                        </Option>
+                    ))}
+                </CategoriesAvailable>
+               
+                {/* <Text style={styles.titleCards}>Em andamento</Text>
                <FlatList
                     data={andamento}
                     style={styles.items}
@@ -242,7 +233,20 @@ export default function Play(props){
                     )}
                     keyExtractor={item => item.id}
                     horizontal={true}       
-                />
+                /> */}
+            </View>
+            <View style={styles.body}>
+               <TitleCard>Em andamento</TitleCard>
+                <CategoriesAvailable>
+                    {categories.map((item) => (
+                        <Option
+                            key={item.key}>
+                            <Img source={item.img} />
+                            <Label>{item.label}</Label>
+                            <Progress.Bar color='blue' progress={0.9} style={{width:'100%'}}/>
+                        </Option>
+                    ))}
+                </CategoriesAvailable>
             </View>
         </View>
     )

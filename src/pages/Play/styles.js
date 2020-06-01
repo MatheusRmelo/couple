@@ -1,5 +1,42 @@
 import { StyleSheet } from 'react-native'
 import varStyles from '../../varStyles'
+import styled from 'styled-components/native'
+
+export const CategoriesAvailable = styled.ScrollView.attrs(()=> ({
+    horizontal: true,
+    showsHorizontalScrollIndicator: false,
+    contentContainerStyle: {
+        paddingLeft: 16,
+        alignItems: 'center'
+    }
+}))`
+    background: ${varStyles.colors.contrasteDark};
+    height: 130px;
+`
+
+
+export const Option = styled.TouchableOpacity`
+    width: 100px;
+    align-items: center;
+    margin-right: 13px;
+`
+export const Img = styled.Image`
+    height:50%;
+    width:100%;
+    border-radius: 100px;
+`
+export const Label = styled.Text`
+    color: #FFF;
+    font-weight: bold;
+    margin-top: 8px;
+    font-size:14px;
+`
+export const TitleCard = styled.Text`
+    color: ${varStyles.colors.text};
+    font-size: 20px;
+    margin: 1% 5%;
+`
+
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -61,7 +98,7 @@ export default StyleSheet.create({
         marginLeft: 10
     },
     body:{
-        flex:6,
+        flex:3,
         marginTop: 10
     },
     titleCards:{
@@ -101,7 +138,7 @@ export default StyleSheet.create({
         borderBottomLeftRadius:5,
     },
     item2:{
-        height:'70%'
+        height:'50%'
     },
     modalHeader:{
         flex:1,
